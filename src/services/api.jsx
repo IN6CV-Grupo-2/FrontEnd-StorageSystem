@@ -62,3 +62,91 @@ export const deleteProvider = async (data) => {
         }
     }
 }
+
+export const createProduct = async (data) => {
+    try {
+        return await apiClient.post('/products', data);
+    } catch (e) {
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const updateProduct = async (productId, data) => {
+    try {
+        return await apiClient.put(`/products/${productId}`, data);
+    } catch (e) {
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const deleteProduct = async (productId) => {
+    try {
+        return await apiClient.delete( `/products/${productId}`);
+    } catch (e) {
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const getProducts = async () => {
+    try {
+        return await apiClient.get('/products');
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const searchProduct = async (productId) => {
+    try {
+        return await apiClient.get(`/products/${productId}`);
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const getReportInventory = async () => {
+    try {
+        return await apiClient.get('/products/report/inventory');
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const getReportMovements = async () => {
+    try {
+        return await apiClient.get('/products/report/movements');        
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const getReportStatistics = async () => {
+    try {
+        return await apiClient.get('/products/report/statistics');
+    } catch (e) {
+        return{
+            error: true,
+            e
+        }
+    }
+}
