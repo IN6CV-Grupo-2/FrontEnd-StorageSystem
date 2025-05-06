@@ -22,6 +22,7 @@ const ProductsPage = () => {
 
   return(
     <div>
+      
       <Routes>
         <Route path='/' element={<Products products={allProducts}/>}/>
         <Route path='/new' element={<ProductForm modo='crear'/>}/>
