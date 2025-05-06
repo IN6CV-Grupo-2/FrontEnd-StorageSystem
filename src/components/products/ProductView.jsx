@@ -10,12 +10,11 @@ export const ProductView = ({getProducts}) => {
 
     useEffect(() => {
         getProductsDetails(id)
-    }, [])
+    }, [id])
 
-    if(isFetching){
-        return <LoadingSpinner/>
+    if (isFetching || !productsDetails) {
+        return <LoadingSpinner />;
     }
-
     return(
         <div className="product-container">
             <ProductDescription

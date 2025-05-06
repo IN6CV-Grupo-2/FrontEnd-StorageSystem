@@ -8,15 +8,17 @@ export const Products = ({products}) => {
         navigate(`/products/${id}`)
     }
 
+
+    console.log(products);
     return (
         <div className="product-container">
-            <button className="btn btn-success mb-3" onClick={() => navigate('/new')}>
+            <button className="btn btn-success mb-3" onClick={() => navigate('/products/new')}>
                 Create Product
             </button>
         {products.map((c) => (
             <ProductCard
-                key={c.id}
-                id={c.id}
+                key={c.uid}
+                id={c.uid}
                 name={c.name}
                 price={c.price}
                 provider={c.provider}

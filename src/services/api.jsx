@@ -98,7 +98,7 @@ export const deleteProduct = async (productId) => {
 
 export const getProducts = async () => {
     try {
-        return await apiClient.get('/products/');
+        return await apiClient.get('/products');
     } catch (e) {
         return {
             error: true,

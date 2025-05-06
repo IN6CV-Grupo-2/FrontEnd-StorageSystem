@@ -5,7 +5,7 @@ import { getProducts as getProductsRequest} from "../../services/api";
 export const useProducts = () => {
     const [products, setProducts] = useState(null);
 
-    const getProducts = async () => {
+    const getProducts = async (isLogged = false) => {
         const productsData = await getProductsRequest();
 
         if(productsData.error){
@@ -14,11 +14,11 @@ export const useProducts = () => {
             )
         }
 
-        /*if(!isLogged){
+        if(!isLogged){
             return setProducts({
                 products: productsData.data.products
             })
-        }*/
+        }
     }
 
     return {

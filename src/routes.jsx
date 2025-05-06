@@ -14,7 +14,7 @@ const AppRoutes = () => {
       <Route path="/" element={<Navigate to={"/auth"}/>} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/main" element={<MainPage />} />
-      <Route path="/products" element={<ProductsPage />} />
+      <Route path="/products/*" element={<ProductsPage />} />
       <Route path="/users" element={<UsersPage />} />
       <Route path="/suppliers" element={<SuppliersPage />} />
       <Route path="/reports" element={<ReportsPage />} />
