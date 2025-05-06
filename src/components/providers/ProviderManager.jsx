@@ -11,11 +11,13 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
         createProvider,
         editProvider,
         removeProvider,
+        searchProviderId
     } = useProviders();
 
     const [editingProvider, setEditingProvider] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [showForm, setShowForm] = useState(false);
+    const [searchResult, setSearchResult] = useState(null);
 
     useEffect(() => {
         getProviders();
@@ -54,6 +56,23 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
         )
         : providers;
 
+    const handleSearchTermChange = async (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+
+        if (value.trim() === "") {
+            setSearchResult(null);
+            return;
+        }
+
+        if (/^\d+$/.test(value)) {
+            const result = await searchProviderId(value);
+            setSearchResult(result?.data || null);
+        } else {
+            setSearchResult(null);
+        }
+    };
+
     return (
         <div className="p-6 max-w-3xl mx-auto">
             <h1 className="text-2xl font-bold mb-4">{title}</h1>
@@ -65,7 +84,7 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
                         type="text"
                         placeholder="Buscar proveedor por nombre o ID"
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={handleSearchTermChange}
                         className="border px-3 py-2 rounded w-64"
                     />
                 )}
@@ -82,7 +101,7 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
                 <p className="text-gray-500">Cargando proveedores...</p>
             ) : (
                 <ProviderTable
-                    providers={filteredProviders}
+                    providers={searchResult ? [searchResult] : filteredProviders}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
                 />

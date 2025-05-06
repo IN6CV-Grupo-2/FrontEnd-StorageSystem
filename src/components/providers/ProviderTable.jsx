@@ -4,7 +4,7 @@ import { ProviderForm } from "./ProviderForm.jsx";
 import "./ProviderTable.css";
 
 export const ProviderTable = ({ onEdit }) => {
-    const { providers, isLoading, getProviders, removeProvider } = useProviders();
+    const { providers, isLoading, getProviders, removeProvider, searchProviderId } = useProviders();
     const [editingProvider, setEditingProvider] = useState(null);
     const [showForm, setShowForm] = useState(false);
 
@@ -33,6 +33,7 @@ export const ProviderTable = ({ onEdit }) => {
         setShowForm(true);
     };
 
+
     if (isLoading) {
         return <p className="text-gray-500">Cargando proveedores...</p>;
     }
@@ -58,6 +59,7 @@ export const ProviderTable = ({ onEdit }) => {
                             <tr>
                                 <th className="p-3">Nombre</th>
                                 <th className="p-3">Correo</th>
+                                <th className="p-3">Teléfono</th>
                                 <th className="p-3 text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -69,6 +71,7 @@ export const ProviderTable = ({ onEdit }) => {
                                 >
                                     <td className="p-3 border-b">{prov.name}</td>
                                     <td className="p-3 border-b">{prov.email}</td>
+                                    <td className="p-3 border-b">{prov.phone}</td>
                                     <td className="p-3 border-b text-center space-x-2">
                                         <button onClick={() => handleEdit(prov)} className="edit-btn">
                                             Editar

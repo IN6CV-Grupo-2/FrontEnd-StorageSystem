@@ -5,22 +5,33 @@ import "./ProviderForm.css";
 export const ProviderForm = ({ onSave, initialData }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const { createProvider, editProvider } = useProviders();
 
+    // Cargar los datos iniciales cuando se edita un proveedor
     useEffect(() => {
         if (initialData?.name) setName(initialData.name);
         if (initialData?.email) setEmail(initialData.email);
+        if (initialData?.phone) setPhone(initialData.phone);
     }, [initialData]);
 
+    // Manejar el envío del formulario
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Si el formulario no tiene errores, se pasa directamente los datos
         if (initialData) {
-            editProvider({ name, email }, initialData.uid);
+            // Editar proveedor
+            editProvider({ name, email, phone }, initialData.uid);
         } else {
-            createProvider({ name, email });
+            // Crear proveedor
+            createProvider({ name, email, phone });
         }
+
+        // Limpiar el formulario y notificar a la página principal
         setName("");
         setEmail("");
+        setPhone("");
         onSave();
     };
 
@@ -60,10 +71,25 @@ export const ProviderForm = ({ onSave, initialData }) => {
                 />
             </div>
 
+            <div>
+                <label htmlFor="providerPhone" className="block font-semibold mb-1 text-[#134BF2]">
+                    Teléfono del proveedor:
+                </label>
+                <input
+                    id="providerPhone"
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    placeholder="Ej. 1234567890"
+                    className="w-full border border-[#B8BBBF] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1BA0F2] bg-white shadow-sm transition"
+                />
+            </div>
+
             <button
                 type="submit"
                 className={`text-white font-semibold px-6 py-2 rounded-lg shadow-md transition-transform duration-300 hover:scale-105
-             ${initialData
+                 ${initialData
                         ? "bg-[#0C87F2] hover:bg-[#1BA0F2]"
                         : "bg-[#134BF2] hover:bg-[#0C87F2]"
                     }`}
