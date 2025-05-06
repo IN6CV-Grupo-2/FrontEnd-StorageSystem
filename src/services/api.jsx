@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const apiClient  = axios.create({
-    baseURL: 'http://127.0.0.1:3000/storageSystem/',
+const apiClient = axios.create({
+    baseURL: 'http://127.0.0.1:3000/storageSystem',
     timeout: 5000
 })
 
@@ -9,7 +9,7 @@ apiClient.interceptors.request.use(
     (config) => {
         const useUserDetails = localStorage.getItem('user');
 
-        if(useUserDetails){
+        if (useUserDetails) {
             const token = JSON.parse(useUserDetails).token
             config.headers.Authorization = `Bearer ${token}`
         }
@@ -52,9 +52,9 @@ export const updateProvider = async (data, providerId) => {
     }
 }
 
-export const deleteProvider = async (data) => {
+export const deleteProvider = async (providerId) => {
     try {
-        return await apiClient.delete('/providers', data)
+        return await apiClient.delete(`/providers/${providerId}`)
     } catch (e) {
         return {
             error: true,
