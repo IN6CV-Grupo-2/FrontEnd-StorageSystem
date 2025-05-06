@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { LoadingSpinner } from "../settings/LoadingSpinner";
-import { useProductDetails } from '../../shared/hooks/useProductDetails';
+import {  useNavigate, useParams } from "react-router-dom";
+import { LoadingSpinner } from "../LoadingSpinner";
+import { useProductDetails } from '../../shared/hooks/useProductsDetails';
 
 export const ProductView = ({getProducts}) => {
     const { isFetching, getProductsDetails, productsDetails } = useProductDetails();
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         getProductsDetails(id)
@@ -27,6 +28,9 @@ export const ProductView = ({getProducts}) => {
                 entryDate={productsDetails.entryDate}
                 expirationDate={productsDetails.expirationDate}
             />
+            <button className="btn btn-warning mb-3" onClick={() => navigate(`/products/edit/${id}`)}>
+                Update Product
+            </button>
         </div>
     )
 }
