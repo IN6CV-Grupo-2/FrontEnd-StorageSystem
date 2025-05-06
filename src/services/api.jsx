@@ -20,6 +20,29 @@ apiClient.interceptors.request.use(
     }
 )
 
+export const login = async (data) => {
+    try {
+        return await apiClient.post('/auth/login', data);
+    }catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const register = async (data) => {
+    try {
+        return await apiClient.post('/auth/register', data);
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+
 export const saveProvider = async (data) => {
     try {
         return await apiClient.post('/providers', data)
@@ -55,6 +78,50 @@ export const updateProvider = async (data, providerId) => {
 export const deleteProvider = async (data) => {
     try {
         return await apiClient.delete('/providers', data)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+
+export const saveCategory = async (data) => {
+    try {
+        return await apiClient.post('/categories', data)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+export const getCategory = async () => {
+    try {
+        return await apiClient.get('/categories')
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const updateCategory = async (data, categoryId) => {
+    try {
+        return await apiClient.put(`/categories/${categoryId}`, data)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const deleteCategory = async (data) => {
+    try {
+        return await apiClient.delete('/categories', data)
     } catch (e) {
         return {
             error: true,
