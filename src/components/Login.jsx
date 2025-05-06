@@ -60,6 +60,7 @@ export const Login = ({ switchAuthHandler }) => {
 
         if(success){
             navigate("/main")
+            console.log(localStorage.getItem('user'))
         }else{
             console.log('Credenciales Incorrectas')
             console.log(localStorage.getItem('user'))
