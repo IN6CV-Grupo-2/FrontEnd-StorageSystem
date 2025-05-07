@@ -1,0 +1,105 @@
+.category-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: #f2f2f2;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    font-family: "Segoe UI", sans-serif;
+  }
+  
+  .category-title {
+    font-size: 2rem;
+    color: #134bf2;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .category-form {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    border: 1px solid #b8bbbf;
+  }
+  
+  .category-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #0c87f2;
+  }
+  
+  .category-form input {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #b8bbbf;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  .category-form input:focus {
+    border-color: #134bf2;
+    outline: none;
+  }
+  
+  .category-form button {
+    background-color: #134bf2;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .category-form button:hover {
+    background-color: #0c87f2;
+  }
+  
+  .category-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .category-table th,
+  .category-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .category-table th {
+    background-color: #1ba0f2;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .category-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .category-search {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #b8bbbf;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  .category-search:focus {
+    border-color: #134bf2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(19, 75, 242, 0.2);
+  }
+  

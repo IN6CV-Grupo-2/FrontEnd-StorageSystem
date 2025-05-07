@@ -10,7 +10,7 @@ import {
     validatePasswordMessage,
     passwordConfirmationMessage
 } from '../shared/validators'
-import { useRegister } from "../shared/hooks"
+import { useRegister } from "../shared/hooks/useRegister";
 
 export const Register = ({ switchAuthHandler }) => {
 

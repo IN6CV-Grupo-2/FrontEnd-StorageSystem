@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Input } from "./Input";
 import {emailValidationMessage,validateEmail,validatePasswordMessage,validatePassword} from "../shared/validators";
-import { useLogin } from "../shared/hooks"
+import { useLogin } from "../shared/hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 
 export const Login = ({ switchAuthHandler }) => {
     
     const { login, isLoading } = useLogin()
+    const navigate = useNavigate();
 
     const [formState, setFormState] = useState({
         email: {
@@ -52,9 +54,16 @@ export const Login = ({ switchAuthHandler }) => {
         }));
     }
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault()
-        login(formState.email.value, formState.password.value)
+        const success = await login(formState.email.value, formState.password.value)
+
+        if(success){
+            navigate("/main")
+        }else{
+            console.log('Credenciales Incorrectas')
+            console.log(localStorage.getItem('user'))
+        }
     }
 
     const isSubmitButtonDisabled = isLoading || !formState.email.isValid || !formState.password.isValid;

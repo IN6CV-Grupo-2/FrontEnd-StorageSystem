@@ -21,7 +21,8 @@ export const useLogin = () => {
         setIsLoading(false)
 
         if(response.error){
-            return toast.error(response.error?.response?.data || 'Ocurrio un error al iniciar sesión, intenta de nuevo')
+            toast.error(response.error?.response?.data || 'Ocurrio un error al iniciar sesión, intenta de nuevo')
+            return false;
         }
 
         const { userDetails } = response.data
@@ -29,8 +30,7 @@ export const useLogin = () => {
         localStorage.setItem('user', JSON.stringify(userDetails));
 
         toast.success('Sesion iniciada correctamente')
-
-        navigate('/')
+        return true
     }
     return {
         login,
