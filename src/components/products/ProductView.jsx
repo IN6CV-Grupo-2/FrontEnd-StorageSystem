@@ -2,30 +2,34 @@ import { useEffect } from "react";
 import {  useNavigate, useParams } from "react-router-dom";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useProductDetails } from '../../shared/hooks/useProductsDetails';
+import { ProductDescription } from './ProductDescription'
 
 export const ProductView = ({getProducts}) => {
-    const { isFetching, getProductsDetails, productsDetails } = useProductDetails();
+    const { isFetching, getProductsDetails, productDetails } = useProductDetails();
     const { id } = useParams();
     const navigate = useNavigate();
+
 
     useEffect(() => {
         getProductsDetails(id)
     }, [id])
 
-    if (isFetching || !productsDetails) {
+
+    if (isFetching || !productDetails) {
         return <LoadingSpinner />;
     }
     return(
         <div className="product-container">
+            {console.log(productDetails)}
             <ProductDescription
-                productId={productsDetails.id}
-                name={productsDetails.name}
-                category={productsDetails.category}
-                quantity={productsDetails.quantity}
-                price={productsDetails.price}
-                provider={productsDetails.provider}
-                entryDate={productsDetails.entryDate}
-                expirationDate={productsDetails.expirationDate}
+                productId={productDetails.uid}
+                name={productDetails.name}
+                category={productDetails.category}
+                quantity={productDetails.quantity}
+                price={productDetails.price}
+                provider={productDetails.provider}
+                entryDate={productDetails.entryDate}
+                expirationDate={productDetails.expirationDate}
             />
             <button className="btn btn-warning mb-3" onClick={() => navigate(`/products/edit/${id}`)}>
                 Update Product

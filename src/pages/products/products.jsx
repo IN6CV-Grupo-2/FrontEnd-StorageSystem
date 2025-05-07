@@ -12,7 +12,6 @@ const ProductsPage = () => {
   
     const {getProducts, allProducts, isFetching } = useProducts();
 
-    
     useEffect(() => {
       getProducts()
     },[])

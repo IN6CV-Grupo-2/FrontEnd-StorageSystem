@@ -7,7 +7,6 @@ export const useProducts = () => {
 
     const getProducts = async (isLogged = false) => {
         const productsData = await getProductsRequest();
-
         if(productsData.error){
             return toast.error(
                 productsData.e?.response?.data || 'Error to show the products'
@@ -19,7 +18,13 @@ export const useProducts = () => {
                 products: productsData.data.products
             })
         }
+
+        setProducts({
+            products : productsData.data.products,
+        })
     }
+
+    
 
     return {
         getProducts,

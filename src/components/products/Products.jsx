@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from './ProductCard';
+import { useEffect } from "react";
 
 export const Products = ({products}) => {
     const navigate = useNavigate();
@@ -9,7 +10,6 @@ export const Products = ({products}) => {
     }
 
 
-    console.log(products);
     return (
         <div className="product-container">
             <button className="btn btn-success mb-3" onClick={() => navigate('/products/new')}>

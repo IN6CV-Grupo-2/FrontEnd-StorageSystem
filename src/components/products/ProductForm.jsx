@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useProductDetails } from "../../shared/hooks/useProductsDetails";
-import { createProduct, updateProduct } from "../../services/api";
+import { createProduct, getProducts, updateProduct } from "../../services/api";
 import { useProviders } from "../../shared/hooks/useProviders";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -18,7 +18,7 @@ export const ProductForm = ({  modo = 'crear' }) => {
         quantity: '',
         price: '',
         provider: '',
-        entryDate: null,
+        entryDate: '',
         expirationDate: ''
     });
 
@@ -53,6 +53,9 @@ export const ProductForm = ({  modo = 'crear' }) => {
         if (modo === 'crear') {
             const res = await createProduct(formData);
             if (!res.error) {
+                
+                    getProducts();
+                
                 navigate('/products');
             }
         } else if (modo === 'editar') {
@@ -89,6 +92,25 @@ export const ProductForm = ({  modo = 'crear' }) => {
                 ))}
 
                 <div className="mb-3">
+                    <label className="form-control">Entry Date</label>
+                    <DatePicker
+                        selected={
+                            formData.entryDate
+                                ? new Date(formData.entryDate)
+                                : null
+                        }
+                        onChange={(date) => 
+                            setFormData((prev) =>({
+                                ...prev,
+                                entryDate: date,
+                            }))
+                        }
+                        dateFormat="yyyy-MM-dd"
+                        className="form-control"
+                        placeholderText="Seleccione una Fecha"
+                    />
+                </div>
+                <div className="mb-3">
                     <label className="form-control">Expiration Date</label>
                     <DatePicker
                         selected={
@@ -116,17 +138,19 @@ export const ProductForm = ({  modo = 'crear' }) => {
                         onChange={handleChange}
                         disabled={loadingProviders}
                     >
+                        
                         <option value="">Seleccione un Proveedor</option>
     
                         {providers && providers.map((prov) => (
-                            <option key={prov.id} value={prov.id}>
-                                {prov.name}
+                            <option key={prov.uid} value={prov.uid}>
+                                {prov.name} 
                             </option>
                         ))}
                     </select>
                 </div>
                 <button className="btn btn-primary" type="submit">
                     {modo === 'crear' ? 'Crear Producto' : 'Guardar Cambios'}
+                    
                 </button>
             </form>
         </div>
