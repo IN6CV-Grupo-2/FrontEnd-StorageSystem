@@ -3,10 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useProductDetails } from "../../shared/hooks/useProductsDetails";
 import { createProduct, updateProduct } from "../../services/api";
+import { useProviders } from "../../shared/hooks/useProviders";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const ProductForm = ({  modo = 'crear' }) => {
     const { id } = useParams();
     const { isFetching, getProductsDetails, productDetails } = useProductDetails();
+    const { providers, isLoading: loadingProviders, getProviders } = useProviders();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
@@ -14,9 +18,10 @@ export const ProductForm = ({  modo = 'crear' }) => {
         quantity: '',
         price: '',
         provider: '',
-        entryDate: '',
+        entryDate: null,
         expirationDate: ''
     });
+
 
     useEffect(() => {
         if (modo === 'editar' && id) {
@@ -29,6 +34,10 @@ export const ProductForm = ({  modo = 'crear' }) => {
             setFormData(productDetails);
         }
     }, [productDetails]);
+
+    useEffect(() => {
+        getProviders();
+    },[]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -62,14 +71,11 @@ export const ProductForm = ({  modo = 'crear' }) => {
         <div className="container mt-4">
             <h2>{modo === 'crear' ? 'Crear Producto' : 'Editar Producto'}</h2>
             <form onSubmit={handleSubmit}>
-                {[
+                {[  
                     { label: "Name", name: "name" },
                     { label: "Category", name: "category" },
                     { label: "Quantity", name: "quantity" },
                     { label: "Price", name: "price" },
-                    { label: "Provider", name: "provider" },
-                    { label: "Entry Date", name: "entryDate" },
-                    { label: "Expiration Date", name: "expirationDate" },
                 ].map(({ label, name }) => (
                     <div className="mb-3" key={name}>
                         <label className="form-label">{label}</label>
@@ -81,6 +87,44 @@ export const ProductForm = ({  modo = 'crear' }) => {
                         />
                     </div>
                 ))}
+
+                <div className="mb-3">
+                    <label className="form-control">Expiration Date</label>
+                    <DatePicker
+                        selected={
+                            formData.expirationDate
+                                ? new Date(formData.expirationDate)
+                                : null
+                        }
+                        onChange={(date) => 
+                            setFormData((prev) =>({
+                                ...prev,
+                                expirationDate: date,
+                            }))
+                        }
+                        dateFormat="yyyy-MM-dd"
+                        className="form-control"
+                        placeholderText="Seleccione una Fecha"
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Proveedor</label>
+                    <select
+                        className="form-control"
+                        name="provider"
+                        value={formData.provider || ''}
+                        onChange={handleChange}
+                        disabled={loadingProviders}
+                    >
+                        <option value="">Seleccione un Proveedor</option>
+    
+                        {providers && providers.map((prov) => (
+                            <option key={prov.id} value={prov.id}>
+                                {prov.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <button className="btn btn-primary" type="submit">
                     {modo === 'crear' ? 'Crear Producto' : 'Guardar Cambios'}
                 </button>

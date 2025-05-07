@@ -9,7 +9,6 @@ const Reports = () => {
 
   return (
     <div>
-      <Navbar />
       <div style={{ display: "flex" }}>
         <Sidebar />
         <main style={{ flex: 1, padding: "20px" }}>

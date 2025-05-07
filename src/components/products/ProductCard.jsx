@@ -22,8 +22,8 @@ export const  ProductCard = ({
     return(
         <div className="products-card" onClick={handleNavigate}>
             <span className="products-card-name">{name}</span>
-            <span className="products-card-name">{price}</span>
-            <span className="products-card-name">{provider}</span>
+            <span className="products-card-name">Precio Unitario | {price}</span>
+            <span className="products-card-name">Proveedor | {provider}</span>
         </div>
     )
 }

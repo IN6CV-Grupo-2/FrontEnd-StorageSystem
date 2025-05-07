@@ -5,6 +5,7 @@ import { useProducts } from "../../shared/hooks/useProducts";
 import { ProductView } from '../../components/products/ProductView';
 import { LoadingSpinner } from '../../components/LoadingSpinner';
 import { ProductForm } from '../../components/products/ProductForm';
+import './products.css';
 
 const ProductsPage = () => {
   
