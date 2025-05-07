@@ -16,7 +16,6 @@ export const ProductDescription = ({
 
     return (
         <div className="product-description-container">
-            {console.log(productId)}
             <span className="product-description-title">{productId}</span>
             <span className="product-description-title">{name}</span>
             <div className="product-description-box">
