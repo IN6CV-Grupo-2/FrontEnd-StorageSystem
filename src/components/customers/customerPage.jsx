@@ -16,8 +16,6 @@ export const CustomerPage = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
-    const [address, setAddress] = useState("");
-    const [dpi, setDpi] = useState("");
 
     useEffect(() => {
         getCustomers();
@@ -26,7 +24,7 @@ export const CustomerPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const customerData = { name, email, phone, address, dpi };
+        const customerData = { name, email, phone };
 
         if (editingCustomer) {
             editCustomer(customerData, editingCustomer.id);
@@ -37,8 +35,6 @@ export const CustomerPage = () => {
         setName("");
         setEmail("");
         setPhone("");
-        setAddress("");
-        setDpi("");
         setEditingCustomer(null);
     };
 
@@ -47,8 +43,6 @@ export const CustomerPage = () => {
         setName(customer.name);
         setEmail(customer.email);
         setPhone(customer.phone);
-        setAddress(customer.address);
-        setDpi(customer.dpi || "");
     };
 
     return (
@@ -78,21 +72,6 @@ export const CustomerPage = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
-                    className="border p-2 rounded w-full mb-2"
-                />
-                <input
-                    type="text"
-                    placeholder="Direccion"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    required
-                    className="border p-2 rounded w-full mb-2"
-                />
-                <input
-                    type="text"
-                    placeholder="DPI (opcional)"
-                    value={dpi}
-                    onChange={(e) => setDpi(e.target.value)}
                     className="border p-2 rounded w-full mb-2"
                 />
                 <button

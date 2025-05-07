@@ -10,9 +10,6 @@ export const CustomerTable = ({ customers, onEdit, onDelete }) => {
                     <th className="p-2 border">Nombre</th>
                     <th className="p-2 border">Correo electrónico</th>
                     <th className="p-2 border">Teléfono</th>
-                    <th className="p-2 border">Dirección</th>
-                    <th className="p-2 border">DPI</th>
-                    <th className="p-2 border">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,8 +18,6 @@ export const CustomerTable = ({ customers, onEdit, onDelete }) => {
                         <td className="p-2 border">{cust.name}</td>
                         <td className="p-2 border">{cust.email}</td>
                         <td className="p-2 border">{cust.phone}</td>
-                        <td className="p-2 border">{cust.address}</td>
-                        <td className="p-2 border">{cust.dpi || "N/A"}</td>
                         <td className="p-2 border space-x-2">
                             <button
                                 onClick={() => onEdit(cust)}

@@ -11,7 +11,7 @@ apiClient.interceptors.request.use(
 
         if(useUserDetails){
             const token = JSON.parse(useUserDetails).token
-            config.headers.Authorization = `Bearer ${token}`
+            config.headers['x-token'] = token;
         }
         return config
     },
@@ -19,6 +19,50 @@ apiClient.interceptors.request.use(
         return Promise.reject(e);
     }
 )
+
+export const saveCustomer = async (data) => {
+    try {
+        return await apiClient.post('/customers/save', data)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const getCustomers = async () => {
+    try {
+        return await apiClient.get('/customers')
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const updateCustomer = async (data, customerId) => {
+    try {
+        return await apiClient.put(`/customers/update/${customerId}?confirm=true`, data)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const deleteCustomer = async (data) => {
+    try {
+        return await apiClient.delete('/customers/delete', data)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
 
 export const saveProvider = async (data) => {
     try {
@@ -63,9 +107,42 @@ export const deleteProvider = async (data) => {
     }
 }
 
-export const saveCustomer = async (data) => {
+export const createProduct = async (data) => {
     try {
-        return await apiClient.post('/customers', data)
+        return await apiClient.post('/products', data);
+    } catch (e) {
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const updateProduct = async (productId, data) => {
+    try {
+        return await apiClient.put(`/products/${productId}`, data);
+    } catch (e) {
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const deleteProduct = async (productId) => {
+    try {
+        return await apiClient.delete( `/products/${productId}`);
+    } catch (e) {
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const getProducts = async () => {
+    try {
+        return await apiClient.get('/products');
     } catch (e) {
         return {
             error: true,
@@ -74,9 +151,9 @@ export const saveCustomer = async (data) => {
     }
 }
 
-export const getCustomers = async () => {
+export const searchProduct = async (productId) => {
     try {
-        return await apiClient.get('/customers')
+        return await apiClient.get(`/products/${productId}`);
     } catch (e) {
         return {
             error: true,
@@ -85,9 +162,9 @@ export const getCustomers = async () => {
     }
 }
 
-export const updateCustomer = async (data, customerId) => {
+export const getReportInventory = async () => {
     try {
-        return await apiClient.put(`/customers/${customerId}`, data)
+        return await apiClient.get('/products/report/inventory');
     } catch (e) {
         return {
             error: true,
@@ -96,9 +173,42 @@ export const updateCustomer = async (data, customerId) => {
     }
 }
 
-export const deleteCustomer = async (data) => {
+export const getReportMovements = async () => {
     try {
-        return await apiClient.delete('/customers', data)
+        return await apiClient.get('/products/report/movements');        
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const getReportStatistics = async () => {
+    try {
+        return await apiClient.get('/products/report/statistics');
+    } catch (e) {
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const login = async (data) => {
+    try {
+        return await apiClient.post('/auth/login', data);
+    }catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const register = async (data) => {
+    try {
+        return await apiClient.post('/auth/register', data);
     } catch (e) {
         return {
             error: true,
