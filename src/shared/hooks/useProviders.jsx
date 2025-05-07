@@ -28,7 +28,7 @@ export const useProviders = () => {
       setIsLoading(false);
     };
 
-    if (!providers) { 
+    if (!providers) {
       fetchProviders();
     }
   }, [providers]);
@@ -41,7 +41,7 @@ export const useProviders = () => {
     }
     toast.success("Proveedores obtenidos correctamente");
 
-    
+
   }
 
   const createProvider = async (data) => {
@@ -87,12 +87,12 @@ export const useProviders = () => {
   const searchProviderId = async (id) => {
     const response = await getProviderById(id);
     if (response.error) {
-        toast.error(response.e?.response?.data || "No se encontró al proveedor");
-        return null;
+      toast.error(response.e?.response?.data || "No se encontró al proveedor");
+      return null;
     }
     toast.success("Proveedor encontrado");
     return response;
-};
+  };
 
   return {
     providers,

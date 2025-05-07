@@ -46,7 +46,7 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
     const handleDelete = async (provider) => {
         if (window.confirm(`¿Estás seguro de eliminar a ${provider.name}?`)) {
             await removeProvider(provider.uid);
-            await getProviders(); // <-- para actualizar la lista después de borrar
+            await getProviders();
         }
     };
 
