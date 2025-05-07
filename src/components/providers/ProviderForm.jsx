@@ -28,6 +28,7 @@ export const ProviderForm = ({ onSave, initialData, onCancel }) => {
         setPhone("");
         onSave();
     };
+    
 
     return (
         <form onSubmit={handleSubmit} className="provider-form">
