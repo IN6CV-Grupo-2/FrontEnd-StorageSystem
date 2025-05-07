@@ -14,7 +14,6 @@ export const useProviders = () => {
   const [searchResult, setSearchResult] = useState(null);
 
   useEffect(() => {
-    // Cargar los proveedores solo cuando el componente se monta
     const fetchProviders = async () => {
       setIsLoading(true);
       const response = await getProvidersRequest();
@@ -29,10 +28,10 @@ export const useProviders = () => {
       setIsLoading(false);
     };
 
-    if (!providers) {  // Solo hace la petición si no hay proveedores
+    if (!providers) { 
       fetchProviders();
     }
-  }, [providers]); // Agregamos `providers` en las dependencias para evitar peticiones infinitas
+  }, [providers]);
 
   const getProviders = async () => {
     const response = await getProvidersRequest();
@@ -54,7 +53,7 @@ export const useProviders = () => {
     }
 
     toast.success("Proveedor guardado correctamente");
-    setProviders((prevProviders) => [...prevProviders, response.data]); // Actualiza la lista de proveedores localmente
+    setProviders((prevProviders) => [...prevProviders, response.data]);
   };
 
   const editProvider = async (data, id) => {
@@ -80,7 +79,6 @@ export const useProviders = () => {
     }
 
     toast.success("Proveedor eliminado correctamente");
-    // Elimina el proveedor de la lista sin hacer otra llamada a la API
     setProviders((prevProviders) =>
       prevProviders.filter((prov) => prov.uid !== id)
     );

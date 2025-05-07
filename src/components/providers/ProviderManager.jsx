@@ -35,13 +35,14 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
 
     const handleSave = async (data) => {
         if (editingProvider) {
-            await editProvider(data, editingProvider.uid);
+          await editProvider(data, editingProvider.uid);
         } else {
-            await createProvider(data);
+          await createProvider(data);
         }
+        await getProviders();
         setEditingProvider(null);
         setShowForm(false);
-    };
+      };
 
     const handleDelete = async (provider) => {
         if (window.confirm(`¿Estás seguro de eliminar a ${provider.name}?`)) {
@@ -93,6 +94,10 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
             {showForm && (
                 <ProviderForm
                     onSave={handleSave}
+                    onCancel={() => {
+                        setEditingProvider(null);
+                        setShowForm(false);
+                    }}
                     initialData={editingProvider}
                 />
             )}

@@ -47,7 +47,7 @@ export const ProviderTable = ({ onEdit }) => {
             </div>
 
             {showForm && (
-                <ProviderForm onSave={handleSave} initialData={editingProvider} />
+                <ProviderForm onSave={handleSave} onCancel={() => setShowForm(false)} initialData={editingProvider} />
             )}
 
             {!providers?.length && !isLoading ? (

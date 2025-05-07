@@ -2,33 +2,27 @@ import { useState, useEffect } from "react";
 import { useProviders } from "../../shared/hooks/useProviders.jsx";
 import "./ProviderForm.css";
 
-export const ProviderForm = ({ onSave, initialData }) => {
+export const ProviderForm = ({ onSave, initialData, onCancel }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const { createProvider, editProvider } = useProviders();
 
-    // Cargar los datos iniciales cuando se edita un proveedor
     useEffect(() => {
         if (initialData?.name) setName(initialData.name);
         if (initialData?.email) setEmail(initialData.email);
         if (initialData?.phone) setPhone(initialData.phone);
     }, [initialData]);
 
-    // Manejar el envío del formulario
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Si el formulario no tiene errores, se pasa directamente los datos
         if (initialData) {
-            // Editar proveedor
             editProvider({ name, email, phone }, initialData.uid);
         } else {
-            // Crear proveedor
             createProvider({ name, email, phone });
         }
 
-        // Limpiar el formulario y notificar a la página principal
         setName("");
         setEmail("");
         setPhone("");
@@ -51,7 +45,7 @@ export const ProviderForm = ({ onSave, initialData }) => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    placeholder="Ej. Fedex, DHL..."
+                    placeholder="..."
                     className="w-full border border-[#B8BBBF] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1BA0F2] bg-white shadow-sm transition"
                 />
             </div>
@@ -81,7 +75,7 @@ export const ProviderForm = ({ onSave, initialData }) => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
-                    placeholder="Ej. 1234567890"
+                    placeholder="+502 "
                     className="w-full border border-[#B8BBBF] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1BA0F2] bg-white shadow-sm transition"
                 />
             </div>
@@ -95,6 +89,14 @@ export const ProviderForm = ({ onSave, initialData }) => {
                     }`}
             >
                 {initialData ? "Actualizar proveedor" : "Agregar proveedor"}
+            </button>
+
+            <button
+                type="button"
+                onClick={onCancel}
+                className="bg-gray-400 hover:bg-gray-500 text-white font-semibold px-6 py-2 rounded-lg transition"
+            >
+                Cancelar
             </button>
         </form>
     );
