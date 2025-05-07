@@ -10,14 +10,13 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
         getProviders,
         createProvider,
         editProvider,
-        removeProvider,
-        searchProviderId
+        removeProvider
     } = useProviders();
 
     const [editingProvider, setEditingProvider] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
     const [showForm, setShowForm] = useState(false);
-    const [searchResult, setSearchResult] = useState(null);
 
     useEffect(() => {
         getProviders();
@@ -35,61 +34,58 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
 
     const handleSave = async (data) => {
         if (editingProvider) {
-          await editProvider(data, editingProvider.uid);
+            await editProvider(data, editingProvider.uid);
         } else {
-          await createProvider(data);
+            await createProvider(data);
         }
         await getProviders();
         setEditingProvider(null);
         setShowForm(false);
-      };
+    };
 
     const handleDelete = async (provider) => {
         if (window.confirm(`¿Estás seguro de eliminar a ${provider.name}?`)) {
             await removeProvider(provider.uid);
+            await getProviders(); // <-- para actualizar la lista después de borrar
         }
     };
 
-    const filteredProviders = searchTerm
+    const handleSearchTermChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handleSearch = () => {
+        setSearchQuery(searchTerm);
+    };
+
+    const filteredProviders = searchQuery
         ? providers?.filter((prov) =>
-            prov.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            prov.uid?.toString().includes(searchTerm)
+            prov.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            prov.phone.toLowerCase().includes(searchQuery.toLowerCase())
         )
         : providers;
-
-    const handleSearchTermChange = async (e) => {
-        const value = e.target.value;
-        setSearchTerm(value);
-
-        if (value.trim() === "") {
-            setSearchResult(null);
-            return;
-        }
-
-        if (/^\d+$/.test(value)) {
-            const result = await searchProviderId(value);
-            setSearchResult(result?.data || null);
-        } else {
-            setSearchResult(null);
-        }
-    };
 
     return (
         <div className="p-6 max-w-3xl mx-auto">
             <h1 className="text-2xl font-bold mb-4">{title}</h1>
 
-            <div className="flex justify-between items-center mb-4">
-
-                {showSearch && (
+            {showSearch && (
+                <div className="flex gap-2 mb-4">
                     <input
                         type="text"
-                        placeholder="Buscar proveedor por nombre o ID"
+                        placeholder="Buscar proveedor por correo o teléfono"
                         value={searchTerm}
                         onChange={handleSearchTermChange}
                         className="border px-3 py-2 rounded w-64"
                     />
-                )}
-            </div>
+                    <button
+                        onClick={handleSearch}
+                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                    >
+                        Buscar
+                    </button>
+                </div>
+            )}
 
             {showForm && (
                 <ProviderForm
@@ -106,7 +102,7 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
                 <p className="text-gray-500">Cargando proveedores...</p>
             ) : (
                 <ProviderTable
-                    providers={searchResult ? [searchResult] : filteredProviders}
+                    providers={filteredProviders}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
                 />

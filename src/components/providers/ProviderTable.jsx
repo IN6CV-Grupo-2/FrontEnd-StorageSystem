@@ -1,42 +1,28 @@
-import { useProviders } from "../../shared/hooks/useProviders.jsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ProviderForm } from "./ProviderForm.jsx";
 import "./ProviderTable.css";
 
-export const ProviderTable = ({ onEdit }) => {
-    const { providers, isLoading, getProviders, removeProvider, searchProviderId } = useProviders();
+export const ProviderTable = ({ providers, onEdit, onDelete }) => {
     const [editingProvider, setEditingProvider] = useState(null);
     const [showForm, setShowForm] = useState(false);
-
-    useEffect(() => {
-        getProviders();
-    }, [getProviders]);
 
     const handleEdit = (provider) => {
         setEditingProvider(provider);
         setShowForm(true);
+        onEdit(provider);
     };
 
     const handleDelete = (provider) => {
         if (window.confirm(`¿Estás seguro de eliminar a ${provider.name}?`)) {
-            removeProvider(provider.uid);
+            onDelete(provider);
         }
-    };
-
-    const handleSave = () => {
-        setEditingProvider(null);
-        setShowForm(false);
     };
 
     const handleAddProvider = () => {
         setEditingProvider(null);
         setShowForm(true);
+        onEdit(null);
     };
-
-
-    if (isLoading) {
-        return <p className="text-gray-500">Cargando proveedores...</p>;
-    }
 
     return (
         <div className="provider-table-container">
@@ -46,11 +32,7 @@ export const ProviderTable = ({ onEdit }) => {
                 </button>
             </div>
 
-            {showForm && (
-                <ProviderForm onSave={handleSave} onCancel={() => setShowForm(false)} initialData={editingProvider} />
-            )}
-
-            {!providers?.length && !isLoading ? (
+            {!providers?.length ? (
                 <p className="text-gray-500 mt-4">No hay proveedores registrados.</p>
             ) : (
                 <div className="overflow-x-auto mt-6">
@@ -64,7 +46,7 @@ export const ProviderTable = ({ onEdit }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {providers?.map((prov, index) => (
+                            {providers.map((prov, index) => (
                                 <tr
                                     key={prov.uid}
                                     className={index % 2 === 0 ? "bg-white" : "bg-[#F2F2F2]"}
