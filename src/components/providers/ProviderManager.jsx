@@ -44,7 +44,7 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
     };
 
     const handleDelete = async (provider) => {
-        if (window.confirm(`¿Estás seguro de eliminar a ${provider.name}?`)) {
+        if (window.confirm(`¿Are you sure to eliminate ${provider.name}?`)) {
             await removeProvider(provider.uid);
             await getProviders();
         }
@@ -73,7 +73,7 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
                 <div className="flex gap-2 mb-4">
                     <input
                         type="text"
-                        placeholder="Buscar proveedor por correo o teléfono"
+                        placeholder="Search by email or phone"
                         value={searchTerm}
                         onChange={handleSearchTermChange}
                         className="border px-3 py-2 rounded w-64"
@@ -82,7 +82,7 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
                         onClick={handleSearch}
                         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
                     >
-                        Buscar
+                        Search
                     </button>
                 </div>
             )}
@@ -99,7 +99,7 @@ export const ProviderManager = ({ showSearch = true, title = "Gestión de Provee
             )}
 
             {isLoading ? (
-                <p className="text-gray-500">Cargando proveedores...</p>
+                <p className="text-gray-500">Loading...</p>
             ) : (
                 <ProviderTable
                     providers={filteredProviders}

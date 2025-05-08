@@ -28,17 +28,18 @@ export const ProviderForm = ({ onSave, initialData, onCancel }) => {
         setPhone("");
         onSave();
     };
-    
+
 
     return (
         <form onSubmit={handleSubmit} className="provider-form">
             <h2 className="text-2xl font-bold text-[#134BF2]">
-                {initialData ? "Editar proveedor" : "Agregar nuevo proveedor"}
+                {initialData ? "Edit supplier" : "Add new supplier"}
             </h2>
 
             <div>
                 <label htmlFor="providerName" className="block font-semibold mb-1 text-[#134BF2]">
-                    Nombre del proveedor:
+
+                    Supplier name:
                 </label>
                 <input
                     id="providerName"
@@ -53,7 +54,7 @@ export const ProviderForm = ({ onSave, initialData, onCancel }) => {
 
             <div>
                 <label htmlFor="providerEmail" className="block font-semibold mb-1 text-[#134BF2]">
-                    Correo del proveedor:
+                    Supplier email:
                 </label>
                 <input
                     id="providerEmail"
@@ -61,14 +62,14 @@ export const ProviderForm = ({ onSave, initialData, onCancel }) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    placeholder="correo@ejemplo.com"
+                    placeholder="email@example.com"
                     className="w-full border border-[#B8BBBF] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1BA0F2] bg-white shadow-sm transition"
                 />
             </div>
 
             <div>
                 <label htmlFor="providerPhone" className="block font-semibold mb-1 text-[#134BF2]">
-                    Teléfono del proveedor:
+                    Provider's phone:
                 </label>
                 <input
                     id="providerPhone"
@@ -89,7 +90,7 @@ export const ProviderForm = ({ onSave, initialData, onCancel }) => {
                         : "bg-[#134BF2] hover:bg-[#0C87F2]"
                     }`}
             >
-                {initialData ? "Actualizar proveedor" : "Agregar proveedor"}
+                {initialData ? "Update provider" : "Add supplier"}
             </button>
 
             <button
@@ -97,7 +98,7 @@ export const ProviderForm = ({ onSave, initialData, onCancel }) => {
                 onClick={onCancel}
                 className="bg-gray-400 hover:bg-gray-500 text-white font-semibold px-6 py-2 rounded-lg transition"
             >
-                Cancelar
+                Cancel
             </button>
         </form>
     );

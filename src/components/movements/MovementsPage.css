@@ -1,0 +1,14 @@
+.movements-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 24px;
+    background-color: #F2F2F2;
+    min-height: 100vh;
+}
+
+.form-section,
+.list-section {
+    flex: 1;
+    min-width: 320px;
+}

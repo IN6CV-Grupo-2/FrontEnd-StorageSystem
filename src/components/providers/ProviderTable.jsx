@@ -13,7 +13,7 @@ export const ProviderTable = ({ providers, onEdit, onDelete }) => {
     };
 
     const handleDelete = (provider) => {
-        if (window.confirm(`¿Estás seguro de eliminar a ${provider.name}?`)) {
+        if (window.confirm(`¿Are you sure to eliminate ${provider.name}?`)) {
             onDelete(provider);
         }
     };
@@ -28,21 +28,21 @@ export const ProviderTable = ({ providers, onEdit, onDelete }) => {
         <div className="provider-table-container">
             <div className="mb-4">
                 <button onClick={handleAddProvider} className="add-provider-btn">
-                    Agregar Nuevo Proveedor
+                    Add new supplier
                 </button>
             </div>
 
             {!providers?.length ? (
-                <p className="text-gray-500 mt-4">No hay proveedores registrados.</p>
+                <p className="text-gray-500 mt-4">There are not registered suppliers.</p>
             ) : (
                 <div className="overflow-x-auto mt-6">
                     <table className="provider-table">
                         <thead>
                             <tr>
-                                <th className="p-3">Nombre</th>
-                                <th className="p-3">Correo</th>
-                                <th className="p-3">Teléfono</th>
-                                <th className="p-3 text-center">Acciones</th>
+                                <th className="p-3">Name</th>
+                                <th className="p-3">Email</th>
+                                <th className="p-3">Phone</th>
+                                <th className="p-3 text-center">Options</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,10 +56,10 @@ export const ProviderTable = ({ providers, onEdit, onDelete }) => {
                                     <td className="p-3 border-b">{prov.phone}</td>
                                     <td className="p-3 border-b text-center space-x-2">
                                         <button onClick={() => handleEdit(prov)} className="edit-btn">
-                                            Editar
+                                            Edit
                                         </button>
                                         <button onClick={() => handleDelete(prov)} className="delete-btn">
-                                            Eliminar
+                                            Eliminate
                                         </button>
                                     </td>
                                 </tr>

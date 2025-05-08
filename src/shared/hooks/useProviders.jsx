@@ -19,7 +19,7 @@ export const useProviders = () => {
       const response = await getProvidersRequest();
 
       if (response.error) {
-        toast.error(response.e?.response?.data || "Error al obtener los proveedores");
+        toast.error(response.e?.response?.data || "Error getting suppliers");
         setIsLoading(false);
         return;
       }
@@ -36,10 +36,10 @@ export const useProviders = () => {
   const getProviders = async () => {
     const response = await getProvidersRequest();
     if (response.error) {
-      toast.error(response.e?.response?.data || "Error al obtener los proveedores");
+      toast.error(response.e?.response?.data || "Error getting suppliers");
       return;
     }
-    toast.success("Proveedores obtenidos correctamente");
+    toast.success("Successfully sourced suppliers");
 
 
   }
@@ -48,11 +48,11 @@ export const useProviders = () => {
     const response = await saveProvider(data);
 
     if (response.error) {
-      toast.error(response.e?.response?.data || "Error al guardar el proveedor");
+      toast.error(response.e?.response?.data || "Error saving provider");
       return;
     }
 
-    toast.success("Proveedor guardado correctamente");
+    toast.success("Supplier saved successfully");
     setProviders((prevProviders) => [...prevProviders, response.data]);
   };
 
@@ -60,11 +60,11 @@ export const useProviders = () => {
     const response = await updateProvider(data, id);
 
     if (response.error) {
-      toast.error(response.e?.response?.data || "Error al actualizar el proveedor");
+      toast.error(response.e?.response?.data || "Error updating provider");
       return;
     }
 
-    toast.success("Proveedor actualizado correctamente");
+    toast.success("Supplier updated successfully");
     setProviders((prevProviders) =>
       prevProviders.map((prov) => prov.uid === id ? { ...prov, ...data } : prov)
     );
@@ -74,11 +74,11 @@ export const useProviders = () => {
     const response = await deleteProvider(id);
 
     if (response.error) {
-      toast.error(response.e?.response?.data || "Error al eliminar el proveedor");
+      toast.error(response.e?.response?.data || "Error deleting the provider");
       return;
     }
 
-    toast.success("Proveedor eliminado correctamente");
+    toast.success("Supplier successfully removed");
     setProviders((prevProviders) =>
       prevProviders.filter((prov) => prov.uid !== id)
     );
@@ -87,10 +87,10 @@ export const useProviders = () => {
   const searchProviderId = async (id) => {
     const response = await getProviderById(id);
     if (response.error) {
-      toast.error(response.e?.response?.data || "No se encontró al proveedor");
+      toast.error(response.e?.response?.data || "Provider not found");
       return null;
     }
-    toast.success("Proveedor encontrado");
+    toast.success("Provider found");
     return response;
   };
 

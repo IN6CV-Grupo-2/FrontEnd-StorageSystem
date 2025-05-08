@@ -1,0 +1,18 @@
+.movement-details {
+    background-color: #ffffff;
+    border-left: 5px solid #134BF2;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(27, 160, 242, 0.1);
+}
+
+.movement-details h3 {
+    color: #134BF2;
+    margin-bottom: 12px;
+}
+
+.movement-details p {
+    margin: 6px 0;
+    color: #333;
+}
