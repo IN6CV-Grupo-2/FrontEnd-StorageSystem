@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from './ProductCard';
-import { useEffect } from "react";
 
 export const Products = ({products}) => {
     const navigate = useNavigate();
