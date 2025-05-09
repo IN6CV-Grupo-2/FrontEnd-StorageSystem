@@ -1,88 +1,101 @@
 import { useState, useEffect } from "react";
+import { useCustomers } from "../../shared/hooks/useCustomers.jsx";
+import "./CustomerForm.css";
 
-export const CustomerForm = ({ onSave, initialData }) => {
+export const CustomerForm = ({ onSave, initialData, onCancel }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const { createCustomer, editCustomer } = useCustomers();
 
     useEffect(() => {
-        if (initialData?.name) {
-        setName(initialData.name);
-        }
-        if (initialData?.email) {
-        setEmail(initialData.email);
-        }
-        if (initialData?.phone) {
-        setPhone(initialData.phone);
-        }
+        if (initialData?.name) setName(initialData.name);
+        if (initialData?.email) setEmail(initialData.email);
+        if (initialData?.phone) setPhone(initialData.phone);
     }, [initialData]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSave({ name, email, phone});
+
+        if (initialData) {
+            editCustomer({ name, email, phone }, initialData.uid);
+        } else {
+            createCustomer({ name, email, phone });
+        }
+
         setName("");
         setEmail("");
         setPhone("");
+        onSave();
     };
 
     return (
-        <form
-        onSubmit={handleSubmit}
-        className="bg-white p-4 rounded shadow mb-6 space-y-4"
-        >
-        <div>
+        <form onSubmit={handleSubmit} className="customer-form">
+            <h2 className="text-2xl font-bold text-[#134BF2]">
+                {initialData ? "Editar cliente" : "Agregar nuevo cliente"}
+            </h2>
+
             <div>
-                <label htmlFor="customerName" className="block font-semibold mb-1">
-                Nombre del cliente:
+                <label htmlFor="customerName" className="block font-semibold mb-1 text-[#134BF2]">
+                    Nombre del cliente:
                 </label>
                 <input
-                id="customerName"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                placeholder="Ej. Juan Gabriel"
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                    id="customerName"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    placeholder="..."
+                    className="w-full border border-[#B8BBBF] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1BA0F2] bg-white shadow-sm transition"
                 />
             </div>
 
             <div>
-                <label htmlFor="customerEmail" className="block font-semibold mb-1">
-                Correo del cliente:
+                <label htmlFor="customerEmail" className="block font-semibold mb-1 text-[#134BF2]">
+                    Correo del cliente:
                 </label>
                 <input
-                id="customerEmail"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="ejemplo@correo.com"
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    id="customerEmail"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    placeholder="correo@ejemplo.com"
+                    className="w-full border border-[#B8BBBF] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1BA0F2] bg-white shadow-sm transition"
                 />
             </div>
 
             <div>
-                <label htmlFor="customerPhone" className="block font-semibold mb-1">
-                Telefono del cliente:
+                <label htmlFor="customerPhone" className="block font-semibold mb-1 text-[#134BF2]">
+                    Teléfono del cliente:
                 </label>
                 <input
-                id="customerPhone"
-                type="text"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-                placeholder="Ej. +502 1234 5678"
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    id="customerPhone"
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    placeholder="+502 "
+                    className="w-full border border-[#B8BBBF] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#1BA0F2] bg-white shadow-sm transition"
                 />
             </div>
-        </div>
-        
-        <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-            {initialData ? "Actualizar" : "Agregar"} cliente
-        </button>
+
+            <button type="submit" className={`text-white font-semibold px-6 py-2 rounded-lg shadow-md transition-transform duration-300 hover:scale-105
+                 ${initialData
+                        ? "bg-[#0C87F2] hover:bg-[#1BA0F2]"
+                        : "bg-[#134BF2] hover:bg-[#0C87F2]"
+                    }`}
+            >
+                {initialData ? "Actualizar cliente" : "Agregar cliente"}
+            </button>
+
+            <button
+                type="button"
+                onClick={onCancel}
+                className="bg-gray-400 hover:bg-gray-500 text-white font-semibold px-6 py-2 rounded-lg transition"
+            >
+                Cancelar
+            </button>
         </form>
     );
 };

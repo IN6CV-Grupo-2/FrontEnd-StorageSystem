@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiClient  = axios.create({
+const apiClient = axios.create({
     baseURL: 'http://127.0.0.1:3000/storageSystem/',
     timeout: 5000
 })
@@ -9,9 +9,9 @@ apiClient.interceptors.request.use(
     (config) => {
         const useUserDetails = localStorage.getItem('user');
 
-        if(useUserDetails){
+        if (useUserDetails) {
             const token = JSON.parse(useUserDetails).token
-            config.headers['x-token'] = token;
+            config.headers["x-token"] = token
         }
         return config
     },
@@ -31,9 +31,20 @@ export const saveCustomer = async (data) => {
     }
 }
 
+export const getCustomerById = async (id) => {
+    try {
+        return await apiClient.get(`/customers/search/${id}`)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
 export const getCustomers = async () => {
     try {
-        return await apiClient.get('/customers')
+        return await apiClient.get('/customers/')
     } catch (e) {
         return {
             error: true,
@@ -44,7 +55,7 @@ export const getCustomers = async () => {
 
 export const updateCustomer = async (data, customerId) => {
     try {
-        return await apiClient.put(`/customers/update/${customerId}?confirm=true`, data)
+        return await apiClient.put(`/customers/update/${customerId}`, data)
     } catch (e) {
         return {
             error: true,
@@ -53,9 +64,9 @@ export const updateCustomer = async (data, customerId) => {
     }
 }
 
-export const deleteCustomer = async (data) => {
+export const deleteCustomer = async (id) => {
     try {
-        return await apiClient.delete('/customers/delete', data)
+        return await apiClient.delete(`/customers/delete/${id}`)
     } catch (e) {
         return {
             error: true,
@@ -111,7 +122,7 @@ export const createProduct = async (data) => {
     try {
         return await apiClient.post('/products', data);
     } catch (e) {
-        return{
+        return {
             error: true,
             e
         }
@@ -122,7 +133,7 @@ export const updateProduct = async (productId, data) => {
     try {
         return await apiClient.put(`/products/${productId}`, data);
     } catch (e) {
-        return{
+        return {
             error: true,
             e
         }
@@ -131,9 +142,9 @@ export const updateProduct = async (productId, data) => {
 
 export const deleteProduct = async (productId) => {
     try {
-        return await apiClient.delete( `/products/${productId}`);
+        return await apiClient.delete(`/products/${productId}`);
     } catch (e) {
-        return{
+        return {
             error: true,
             e
         }
@@ -175,7 +186,7 @@ export const getReportInventory = async () => {
 
 export const getReportMovements = async () => {
     try {
-        return await apiClient.get('/products/report/movements');        
+        return await apiClient.get('/products/report/movements');
     } catch (e) {
         return {
             error: true,
@@ -188,7 +199,7 @@ export const getReportStatistics = async () => {
     try {
         return await apiClient.get('/products/report/statistics');
     } catch (e) {
-        return{
+        return {
             error: true,
             e
         }
@@ -198,7 +209,7 @@ export const getReportStatistics = async () => {
 export const login = async (data) => {
     try {
         return await apiClient.post('/auth/login', data);
-    }catch (e) {
+    } catch (e) {
         return {
             error: true,
             e
