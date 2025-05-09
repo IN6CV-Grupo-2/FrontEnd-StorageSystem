@@ -31,8 +31,11 @@ export const ProductView = ({getProducts}) => {
                 entryDate={productDetails.entryDate}
                 expirationDate={productDetails.expirationDate}
             />
-            <button className="btn btn-warning mb-3" onClick={() => navigate(`/products/edit/${id}`)}>
+            <button className="btn-update" onClick={() => navigate(`/products/edit/${id}`)}>
                 Update Product
+            </button>
+            <button className="btn-update mb-3" onClick={() => navigate('/products')}>
+                Come Back
             </button>
         </div>
     )

@@ -3,6 +3,7 @@ import Navbar from '../../components/navbars/navbar';
 import Sidebar from "../../components/dashboard/sidebar";
 import { PieInventoryActive } from '../../components/Reports/ReportInvetoryPieTotalValue';
 import { PieQuantityTotal } from '../../components/Reports/ReportPieQuantityTotal';
+import { BarChartStatistics } from '../../components/Reports/ReportMoreMoved'
 
 const Reports = () => {
 
@@ -20,6 +21,12 @@ const Reports = () => {
       <Sidebar />
         <main style={{ flex: 1, padding: "20px" }}>
           <PieQuantityTotal />
+        </main>
+      </div>
+      <div>
+      <Sidebar />
+        <main style={{ flex: 1, padding: "20px" }}>
+          <BarChartStatistics />
         </main>
       </div>
     </div>

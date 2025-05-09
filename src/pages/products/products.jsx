@@ -5,6 +5,8 @@ import { useProducts } from "../../shared/hooks/useProducts";
 import { ProductView } from '../../components/products/ProductView';
 import { LoadingSpinner } from '../../components/LoadingSpinner';
 import { ProductForm } from '../../components/products/ProductForm';
+import Sidebar from '../../components/dashboard/sidebar';
+import Navbar from '../../components/navbars/navbar';
 import './products.css';
 
 const ProductsPage = () => {
@@ -22,7 +24,10 @@ const ProductsPage = () => {
 
   return(
     <div>
-      
+      <div className="layout d-flex flex-column">
+        <Sidebar/>
+        <Navbar/>
+      </div>
       <Routes>
         <Route path='/' element={<Products products={allProducts}/>}/>
         <Route path='/new' element={<ProductForm modo='crear'/>}/>

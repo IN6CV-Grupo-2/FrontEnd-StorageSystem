@@ -19,7 +19,8 @@ export const ProductForm = ({  modo = 'crear' }) => {
         price: '',
         provider: '',
         entryDate: '',
-        expirationDate: ''
+        expirationDate: '',
+        urlImage: '',
     });
 
 
@@ -71,8 +72,8 @@ export const ProductForm = ({  modo = 'crear' }) => {
     }
 
     return (
-        <div className="container mt-4">
-            <h2>{modo === 'crear' ? 'Crear Producto' : 'Editar Producto'}</h2>
+        <div className="container-form ">
+            <h2>{modo === 'crear' ? 'Create Product' : 'Edit Product'}</h2>
             <form onSubmit={handleSubmit}>
                 {[  
                     { label: "Name", name: "name" },
@@ -107,7 +108,7 @@ export const ProductForm = ({  modo = 'crear' }) => {
                         }
                         dateFormat="yyyy-MM-dd"
                         className="form-control"
-                        placeholderText="Seleccione una Fecha"
+                        placeholderText="Select a Date"
                     />
                 </div>
                 <div className="mb-3">
@@ -126,7 +127,7 @@ export const ProductForm = ({  modo = 'crear' }) => {
                         }
                         dateFormat="yyyy-MM-dd"
                         className="form-control"
-                        placeholderText="Seleccione una Fecha"
+                        placeholderText="Select a Date"
                     />
                 </div>
                 <div className="mb-3">
@@ -139,7 +140,7 @@ export const ProductForm = ({  modo = 'crear' }) => {
                         disabled={loadingProviders}
                     >
                         
-                        <option value="">Seleccione un Proveedor</option>
+                        <option value="">Select a Provider</option>
     
                         {providers && providers.map((prov) => (
                             <option key={prov.uid} value={prov.uid}>
@@ -147,10 +148,27 @@ export const ProductForm = ({  modo = 'crear' }) => {
                             </option>
                         ))}
                     </select>
-                </div>
-                <button className="btn btn-primary" type="submit">
-                    {modo === 'crear' ? 'Crear Producto' : 'Guardar Cambios'}
+                    <div className="mb-3">
+                        <label htmlFor="urlImage" className="form-label">URL of the Product Image</label>
+                        <input
+                        type="url"
+                        id="urlImage"
+                        name="urlImage"
+                        className="form-control"
+                        placeholder="https://example.com/image.jpg"
+                        value={formData.urlImage || ""}
+                        onChange={handleChange}
+                        required
+                        />
+                    </div>
                     
+                </div>
+                <button className="btn-update" type="submit">
+                    {modo === 'crear' ? 'Create Product' : 'Save Changes'}
+                    
+                </button>
+                <button className="btn-update" onClick={() => navigate('/products')}>
+                        Come Back
                 </button>
             </form>
         </div>

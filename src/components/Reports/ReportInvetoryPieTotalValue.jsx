@@ -15,7 +15,7 @@ export const PieInventoryActive = () => {
                 const response = await getReportInventory();
                 const productos = response?.data?.productos;
                 const valor_Total =response?.data?.resumen?.valorTotalInventario;
-                console.log(response);
+                
 
                 if (Array.isArray(productos)) {
                     setProductList(productos);

@@ -3,7 +3,7 @@ import icon from "../../assets/img/icon.png";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-dark bg-primary p-3">
+    <nav className="navbar navbar-dark p-3" style={{backgroundColor: '#1F3B4D'}} >
       <div className="d-flex align-items-center">
         <button
           className="btn btn-outline-light me-4"

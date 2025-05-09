@@ -7,7 +7,8 @@ export const ProductDescription = ({
     price,
     provider,
     entryDate,
-    expirationDate
+    expirationDate,
+    urlImage
 }) => {
 
     const formaDate = (date) => {
@@ -53,6 +54,11 @@ export const ProductDescription = ({
                 <div className="form-group">
                     <label className="fw-bold">Fecha de vencimiento:</label>
                     <p className="form-control-plaintext">{formaDate(expirationDate)}</p>
+                </div>
+                </div>
+                <div className="col-md-6">
+                <div className="form-group">
+                    <img src={urlImage} alt="Image's Product" /> Image's Product
                 </div>
                 </div>
             </div>

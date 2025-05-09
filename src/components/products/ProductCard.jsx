@@ -1,3 +1,5 @@
+import './ProductCard.css'
+
 const imageUrl = ''
 
 const ProductAvatar = ({url}) => {
@@ -20,11 +22,11 @@ export const  ProductCard = ({
     }
 
     return(
-        <div className="card product-card shadow-sm border-0 mb-3" onClick={handleNavigate} style={{ cursor: 'pointer' }}>
-            <div className="card-body">
-                <h5 className="card-title text-primary">{name}</h5>
-                <p className="card-text mb-1"><strong>Precio Unitario:</strong> {price}</p>
-                <p className="card-text"><strong>Proveedor:</strong> {provider}</p>
+        <div className="card-product" onClick={handleNavigate} style={{ cursor: 'pointer' }}>
+            <div className="card-info">
+                <h5 className="title text-primary">{name}</h5>
+                <p className="title mb-1"><strong>Precio Unitario:</strong> {price}</p>
+                <p className="title"><strong>Proveedor:</strong> {provider}</p>
             </div>
         </div>
     )

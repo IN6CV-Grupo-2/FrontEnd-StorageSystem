@@ -9,10 +9,16 @@ export const BarChartStatistics = () => {
         const fetchData = async () => {
             try {
                 const response = await getReportStatistics();
-                console.log(response);
+                setProductList(response);
             } catch (error) {
                 console.error('Error to get products', error)
             }
         }
     })
+
+    return(
+        <div>
+            {console.log(productList)}
+        </div>
+    )
 }

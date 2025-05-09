@@ -11,8 +11,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className="layout d-flex flex-column">
-        <Navbar />
-        <Sidebar />
         <div className="content p-3 flex-grow-1">
           <AppRoutes />
         </div>

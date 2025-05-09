@@ -1,24 +1,12 @@
-.products-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.2s ease;
+body{
+    background-color: #F4F6F8;
 }
 
-.products-card:hover {
-    transform: scale(1.02);
-    background-color: #f9f9f9;
+button{
+    background-color: #0A74DA;
 }
 
-.products-card-name {
-    display: block;
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 8px;
-}
+
 .spinner-container {
     position: absolute;
     width: 100%;
@@ -44,7 +32,6 @@
     flex-direction: column;
     overflow-y: auto;
     max-height: 25%;
-    background-color: gold;
 }
  
 .product-description-box {
@@ -73,6 +60,7 @@
     height: 100%;
     width: 100%;
     display: block;
+    background-color: F4F6F8;
 }
 
 .product-despcription{
@@ -98,3 +86,29 @@
     transform: scale(1.02);
     transition: all 0.2s ease-in-out;
   }
+
+  .btn-update{
+    height: 40px;
+    margin: 20px;
+    border-radius: 10px;
+    border: 2px solid #4B6587;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+
+.btn-update:hover{
+    background-color: #4B6587; 
+  color: white; 
+  border: 2px solid #2C3E50;
+}
+
+.container-form{
+    width: 65%;
+    margin: 0 auto;
+    padding: 50px;
+    border: 0.5px solid;
+    border-radius: 20px;
+    background-color: #F4F6F8 ;
+    font-family: Merriweather, serif;
+}
