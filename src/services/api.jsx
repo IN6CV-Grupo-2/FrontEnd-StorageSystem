@@ -184,3 +184,43 @@ export const register = async (data) => {
         }
     }
 }
+
+export const getMovements = async () => {
+    try {
+      return await apiClient.get("/movements");
+    } catch (e) {
+      return { error: true, e };
+    }
+  };
+  
+  export const createMovement = async (data) => {
+    try {
+      return await apiClient.post("/movements", data);
+    } catch (e) {
+      return { error: true, e };
+    }
+  };
+  
+  export const updateMovement = async (id, data) => {
+    try {
+      return await apiClient.put(`/movements/${id}`, data);
+    } catch (e) {
+      return { error: true, e };
+    }
+  };
+  
+  export const deleteMovement = async (id) => {
+    try {
+      return await apiClient.delete(`/movements/${id}`);
+    } catch (e) {
+      return { error: true, e };
+    }
+  };
+
+  export const getMovementById = async (id) => {
+    try {
+      return await apiClient.get(`/movements/${id}`);
+    } catch (e) {
+      return { error: true, e };
+    }
+  };

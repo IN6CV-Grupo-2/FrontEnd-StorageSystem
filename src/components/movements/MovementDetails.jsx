@@ -2,18 +2,18 @@ import React from "react";
 import "./MovementDetails.css";
 
 const MovementDetails = ({ movement }) => {
-    if (!movement) return <p>No hay movimiento seleccionado.</p>;
+    if (!movement) return <p>No move selected.</p>;
 
     return (
         <div className="movement-details">
-            <h3>Detalles del Movimiento</h3>
-            <p><strong>Producto:</strong> {movement.product?.name}</p>
-            <p><strong>Tipo:</strong> {movement.type}</p>
-            <p><strong>Cantidad:</strong> {movement.quantity}</p>
-            <p><strong>Fecha:</strong> {new Date(movement.date).toLocaleString()}</p>
-            <p><strong>Empleado:</strong> {movement.employee?.name}</p>
-            <p><strong>Razón:</strong> {movement.reason || "N/A"}</p>
-            <p><strong>Destino:</strong> {movement.destination || "N/A"}</p>
+            <h3>Movement Details</h3>
+            <p><strong>Product:</strong> {movement.product?.name}</p>
+            <p><strong>Type:</strong> {movement.type}</p>
+            <p><strong>Amount:</strong> {movement.quantity}</p>
+            <p><strong>Date:</strong> {new Date(movement.date).toLocaleString()}</p>
+            <p><strong>Employee:</strong> {movement.employee?.name}</p>
+            <p><strong>Reason:</strong> {movement.reason || "N/A"}</p>
+            <p><strong>Destination:</strong> {movement.destination || "N/A"}</p>
         </div>
     );
 };

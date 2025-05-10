@@ -31,3 +31,20 @@
 .movement-item.salida {
     border-color: #B8BBBF;
 }
+
+.movement-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.movement-table th,
+.movement-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.movement-table tr:hover {
+    background-color: #E9F0FF;
+    cursor: pointer;
+}

@@ -33,10 +33,10 @@ const MovementForm = ({ onSubmit, products = [], employees = [] }) => {
 
     return (
         <form className="movement-form" onSubmit={handleSubmit}>
-            <h2>Registrar Movimiento</h2>
+            <h2>Register Movement</h2>
 
             <label>
-                Producto:
+                Product:
                 <input
                     list="products"
                     name="product"
@@ -52,7 +52,7 @@ const MovementForm = ({ onSubmit, products = [], employees = [] }) => {
             </label>
 
             <label>
-                Empleado:
+                Employee:
                 <input
                     list="employees"
                     name="employee"
@@ -68,7 +68,7 @@ const MovementForm = ({ onSubmit, products = [], employees = [] }) => {
             </label>
 
             <label>
-                Tipo:
+                Type:
                 <select name="type" onChange={handleChange} value={form.type}>
                     <option value="entrada">Entrada</option>
                     <option value="salida">Salida</option>
@@ -76,7 +76,7 @@ const MovementForm = ({ onSubmit, products = [], employees = [] }) => {
             </label>
 
             <label>
-                Cantidad:
+                Amount:
                 <input
                     type="number"
                     name="quantity"
@@ -89,7 +89,7 @@ const MovementForm = ({ onSubmit, products = [], employees = [] }) => {
             {form.type === "salida" && (
                 <>
                     <label>
-                        Razón:
+                        Reason:
                         <input
                             type="text"
                             name="reason"
@@ -99,7 +99,7 @@ const MovementForm = ({ onSubmit, products = [], employees = [] }) => {
                     </label>
 
                     <label>
-                        Destino:
+                        Destination:
                         <input
                             type="text"
                             name="destination"
@@ -110,7 +110,7 @@ const MovementForm = ({ onSubmit, products = [], employees = [] }) => {
                 </>
             )}
 
-            <button type="submit">Guardar</button>
+            <button type="submit">Save</button>
         </form>
     );
 };

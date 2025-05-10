@@ -4,6 +4,7 @@ import ProductsPage from "../src/pages/products/products.jsx";
 import UsersPage from "../src/pages/users/users.jsx";
 import SuppliersPage from "../src/pages/suppliers/suppliers.jsx";
 import ReportsPage from "../src/pages/reports/reports.jsx";
+import MovementsPage from "./pages/movements/movements.jsx";
 import { Auth } from "./pages/auth/Auth.jsx";
 
 
@@ -18,6 +19,7 @@ const AppRoutes = () => {
       <Route path="/users" element={<UsersPage />} />
       <Route path="/suppliers" element={<SuppliersPage />} />
       <Route path="/reports" element={<ReportsPage />} />
+      <Route path="/movements/*" element={<MovementsPage />} />
     </Routes>
   );
 };
