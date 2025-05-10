@@ -1,20 +1,25 @@
-import './ProductCard.css'
 
-const imageUrl = ''
 
-const ProductAvatar = ({url}) => {
-    return (
-        <div className="product-image-container">
-            <img src={url || imageUrl} width='100%' height='100%' alt="Default Avatar" />
-        </div>
-    )
-}
+const imageUrl = 'https://www.shutterstock.com/image-vector/product-defect-label-line-icon-600nw-2252869127.jpg'
+
+const ProductImage = ({ image }) => {
+  return (
+    <div className="w-full aspect-square bg-gray-100">
+      <img
+        src={image || imageUrl}
+        alt="Imagen del producto"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  );
+};
 
 export const  ProductCard = ({
     id,
     name,
     price,
     provider,
+    image,
     navigateToProductHandler
 }) => {
     const handleNavigate = () => {
@@ -22,12 +27,24 @@ export const  ProductCard = ({
     }
 
     return(
-        <div className="card-product" onClick={handleNavigate} style={{ cursor: 'pointer' }}>
-            <div className="card-info">
-                <h5 className="title text-primary">{name}</h5>
-                <p className="title mb-1"><strong>Precio Unitario:</strong> {price}</p>
-                <p className="title"><strong>Proveedor:</strong> {provider}</p>
-            </div>
-        </div>
+        <div
+      className="card"
+      onClick={handleNavigate}
+      style={{ cursor: 'pointer' }}
+    >
+      <ProductImage url={image} />
+      <div className="card-content">
+        <h2 className="card-title">{name}</h2>
+        <p className="card-description">
+          <span className="font-semibold">Precio:</span> ${price}
+        </p>
+        <p className="card-description">
+          <span className="font-semibold">Proveedor:</span> {provider?.name || provider}
+        </p>
+        <button className="card-button">
+          More Details
+        </button>
+      </div>
+    </div>
     )
 }

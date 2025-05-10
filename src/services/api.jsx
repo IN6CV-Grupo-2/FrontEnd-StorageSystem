@@ -52,9 +52,9 @@ export const updateProvider = async (data, providerId) => {
     }
 }
 
-export const deleteProvider = async (data) => {
+export const deleteProvider = async (id) => {
     try {
-        return await apiClient.delete('/providers', data)
+        return await apiClient.delete('/providers/', id)
     } catch (e) {
         return {
             error: true,

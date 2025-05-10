@@ -8,7 +8,7 @@ export const ProductDescription = ({
     provider,
     entryDate,
     expirationDate,
-    urlImage
+    image
 }) => {
 
     const formaDate = (date) => {
@@ -58,7 +58,7 @@ export const ProductDescription = ({
                 </div>
                 <div className="col-md-6">
                 <div className="form-group">
-                    <img src={urlImage} alt="Image's Product" /> Image's Product
+                    <img src={image} alt="product without image" /> Image's Product
                 </div>
                 </div>
             </div>

@@ -9,16 +9,51 @@ export const BarChartStatistics = () => {
         const fetchData = async () => {
             try {
                 const response = await getReportStatistics();
-                setProductList(response);
+                const products = response?.data?.productosMasMovidos;
+
+                if(Array.isArray(products)){
+                    setProductList(products);
+                }
+                console.log(response)
             } catch (error) {
                 console.error('Error to get products', error)
             }
-        }
-    })
+        };
+
+        fetchData();
+    },[])
+
+    const barData = productList.map((product) => ({
+        producto: product.producto,
+        entradas: product.entradas,
+        salidas: product.salidas,
+        stock: product.stock,
+        movimientos: product.movimientos
+    }));
+
+    const chartSetting = {
+        yAxis: [
+            {
+            label: 'rainfall (mm)',
+            width: 60,
+            },
+        ],
+        height: 300,
+    };
 
     return(
         <div>
-            {console.log(productList)}
+            <BarChart
+                dataset={barData}
+                xAxis={[{dataKey: 'producto' }]}
+                series={[
+                    {dataKey: 'entradas',label: 'Entradas'},
+                    {dataKey: 'salidas',label: 'Salidas'},
+                    {dataKey: 'stock', label: 'Stock'},
+                    {dataKey: 'movimientos', label: 'Movimientos'}
+                ]}
+                {...chartSetting}
+            />
         </div>
     )
 }

@@ -20,7 +20,7 @@ export const ProductForm = ({  modo = 'crear' }) => {
         provider: '',
         entryDate: '',
         expirationDate: '',
-        urlImage: '',
+        image: '',
     });
 
 
@@ -38,6 +38,7 @@ export const ProductForm = ({  modo = 'crear' }) => {
 
     useEffect(() => {
         getProviders();
+        
     },[]);
 
     const handleChange = (e) => {
@@ -152,13 +153,12 @@ export const ProductForm = ({  modo = 'crear' }) => {
                         <label htmlFor="urlImage" className="form-label">URL of the Product Image</label>
                         <input
                         type="url"
-                        id="urlImage"
-                        name="urlImage"
+                        id="image"
+                        name="image"
                         className="form-control"
                         placeholder="https://example.com/image.jpg"
-                        value={formData.urlImage || ""}
+                        value={formData.image || ""}
                         onChange={handleChange}
-                        required
                         />
                     </div>
                     

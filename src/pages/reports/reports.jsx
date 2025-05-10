@@ -4,29 +4,29 @@ import Sidebar from "../../components/dashboard/sidebar";
 import { PieInventoryActive } from '../../components/Reports/ReportInvetoryPieTotalValue';
 import { PieQuantityTotal } from '../../components/Reports/ReportPieQuantityTotal';
 import { BarChartStatistics } from '../../components/Reports/ReportMoreMoved'
+import './reports.css';
 
 const Reports = () => {
 
 
 
   return (
-    <div>
-      <div style={{ display: "flex" }}>
+      <div className="dashboard-container">
+      <Navbar />
+      <div className="dashboard-body">
         <Sidebar />
-        <main style={{ flex: 1, padding: "20px" }}>
-          <PieInventoryActive />
-        </main>
-      </div>
-      <div style={{display: "flex"}}>
-      <Sidebar />
-        <main style={{ flex: 1, padding: "20px" }}>
-          <PieQuantityTotal />
-        </main>
-      </div>
-      <div>
-      <Sidebar />
-        <main style={{ flex: 1, padding: "20px" }}>
-          <BarChartStatistics />
+        <main className="dashboard-main">
+          <section className="dashboard-section">
+            <PieInventoryActive />
+          </section>
+
+          <section className="dashboard-section">
+            <PieQuantityTotal />
+          </section>
+
+          <section className="dashboard-section">
+            <BarChartStatistics />
+          </section>
         </main>
       </div>
     </div>
