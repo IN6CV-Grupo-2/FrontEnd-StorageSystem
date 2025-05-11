@@ -129,9 +129,14 @@ export const getReportInventory = async () => {
     }
 }
 
-export const getReportMovements = async () => {
+export const getReportMovements = async (data) => {
     try {
-        return await apiClient.get('/products/report/movements');        
+        return await apiClient.get('/products/report/movements',{
+            params: {
+                startDate: data.startDate,
+                endDate: data.endDate
+            }
+        });        
     } catch (e) {
         return {
             error: true,

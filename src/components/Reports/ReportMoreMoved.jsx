@@ -25,10 +25,11 @@ export const BarChartStatistics = () => {
 
     const barData = productList.map((product) => ({
         producto: product.producto,
-        entradas: product.entradas,
-        salidas: product.salidas,
-        stock: product.stock,
-        movimientos: product.movimientos
+        entradas: product.totalEntradas,
+        salidas: product.totalSalidas,
+        stock: product.stockActual,
+        movimientos: product.totalMovimientos,
+        promedioMov: product.promedioMovimiento
     }));
 
     const chartSetting = {
@@ -50,7 +51,8 @@ export const BarChartStatistics = () => {
                     {dataKey: 'entradas',label: 'Entradas'},
                     {dataKey: 'salidas',label: 'Salidas'},
                     {dataKey: 'stock', label: 'Stock'},
-                    {dataKey: 'movimientos', label: 'Movimientos'}
+                    {dataKey: 'movimientos', label: 'Movimientos'},
+                    {dataKey: 'promedioMov',label: 'Promedio de Movimiento'}
                 ]}
                 {...chartSetting}
             />

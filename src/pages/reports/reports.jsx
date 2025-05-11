@@ -4,6 +4,8 @@ import Sidebar from "../../components/dashboard/sidebar";
 import { PieInventoryActive } from '../../components/Reports/ReportInvetoryPieTotalValue';
 import { PieQuantityTotal } from '../../components/Reports/ReportPieQuantityTotal';
 import { BarChartStatistics } from '../../components/Reports/ReportMoreMoved'
+import { BarChartProducts } from "../../components/Reports/ReportValueUnitaryProducts";
+import { BarChartMovements } from "../../components/Reports/ReportMovementePeriod";
 import './reports.css';
 
 const Reports = () => {
@@ -25,7 +27,14 @@ const Reports = () => {
           </section>
 
           <section className="dashboard-section">
+            <BarChartProducts/>
+          </section>
+
+          <section className="dashboard-section">
             <BarChartStatistics />
+          </section>
+          <section className="dashboard-section">
+            <BarChartMovements/>
           </section>
         </main>
       </div>
