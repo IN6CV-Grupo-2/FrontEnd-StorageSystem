@@ -44,7 +44,7 @@ const MovementsT = ({ movements, products = [], users = [], onSubmit, onDelete, 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!form.product) {
-            alert("Debe seleccionar un producto válido.");
+            alert("You must select a valid product");
             return;
         }
 
@@ -66,19 +66,19 @@ const MovementsT = ({ movements, products = [], users = [], onSubmit, onDelete, 
                     setEditingMovement(null);
                     setShowModal(true);
                 }}>
-                    Nuevo Movimiento
+                    New Movement
                 </button>
             </div>
 
             <table className="movement-table">
                 <thead>
                     <tr>
-                        <th>Producto</th>
-                        <th>Tipo</th>
-                        <th>Cantidad</th>
-                        <th>Fecha</th>
-                        <th>Empleado</th>
-                        <th>Acciones</th>
+                        <th>Product</th>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                        <th>Date</th>
+                        <th>Employee</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,13 +97,17 @@ const MovementsT = ({ movements, products = [], users = [], onSubmit, onDelete, 
                                         setShowModal(true);
                                     }}
                                 >
-                                    Editar
+                                    Edit
                                 </button>
                                 <button
                                     className="delete-button"
-                                    onClick={() => onDelete(movement.uid)}
+                                    onClick={() => {
+                                        if (window.confirm(`¿Estás seguro de eliminar el movimiento de ${movement.product?.name}?`)) {
+                                            onDelete(movement.uid);
+                                        }
+                                    }}
                                 >
-                                    Eliminar
+                                    Delete
                                 </button>
                             </td>
                         </tr>
@@ -114,17 +118,17 @@ const MovementsT = ({ movements, products = [], users = [], onSubmit, onDelete, 
             {showModal && (
                 <div className="modal-overlay" onClick={() => setShowModal(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h3>Registrar Movimiento</h3>
+                        <h3>Register Movement</h3>
                         <form className="movement-form" onSubmit={handleSubmit}>
                             <label>
-                                Producto:
+                                Product:
                                 <select
                                     name="product"
                                     onChange={handleChange}
                                     value={form.product}
                                     required
                                 >
-                                    <option value="">Seleccione un producto</option>
+                                    <option value="">Select a product</option>
                                     {products.map((p) => (
                                         <option key={p.uid} value={p.uid}>
                                             {p.name}
@@ -134,15 +138,15 @@ const MovementsT = ({ movements, products = [], users = [], onSubmit, onDelete, 
                             </label>
 
                             <label>
-                                Tipo:
+                                Type:
                                 <select name="type" onChange={handleChange} value={form.type}>
-                                    <option value="entrada">Entrada</option>
-                                    <option value="salida">Salida</option>
+                                    <option value="entrada">Entrance</option>
+                                    <option value="salida">Exit</option>
                                 </select>
                             </label>
 
                             <label>
-                                Cantidad:
+                                Quantity:
                                 <input
                                     type="number"
                                     name="quantity"
@@ -155,7 +159,7 @@ const MovementsT = ({ movements, products = [], users = [], onSubmit, onDelete, 
                             {form.type === "salida" && (
                                 <>
                                     <label>
-                                        Razón:
+                                        Reason:
                                         <input
                                             type="text"
                                             name="reason"
@@ -165,7 +169,7 @@ const MovementsT = ({ movements, products = [], users = [], onSubmit, onDelete, 
                                     </label>
 
                                     <label>
-                                        Destino:
+                                        Destination:
                                         <input
                                             type="text"
                                             name="destination"
@@ -183,7 +187,7 @@ const MovementsT = ({ movements, products = [], users = [], onSubmit, onDelete, 
                                     className="cancel-button"
                                     onClick={() => setShowModal(false)}
                                 >
-                                    Cancelar
+                                    Cancel
                                 </button>
                             </div>
                         </form>

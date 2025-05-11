@@ -16,7 +16,7 @@ export const useMovements = () => {
     setIsLoading(true);
     const res = await getMovementsRequest();
     if (res.error) {
-      toast.error(res.e?.response?.data || "Error al obtener movimientos");
+      toast.error(res.e?.response?.data || "Error getting moves");
     } else {
       setMovements(res.data.movements);
     }
@@ -26,7 +26,7 @@ export const useMovements = () => {
   const getMovementById = async (id) => {
     const res = await getMovementByIdRequest(id);
     if (res.error) {
-      toast.error(res.e?.response?.data || "Error al obtener movimiento");
+      toast.error(res.e?.response?.data || "Error getting movement ");
     }
     return res.data?.movement;
   };
@@ -34,9 +34,9 @@ export const useMovements = () => {
   const createMovement = async (data) => {
     const res = await createMovementRequest(data);
     if (res.error) {
-      toast.error(res.e?.response?.data || "Error al crear movimiento");
+      toast.error(res.e?.response?.data || "Error creating movement");
     } else {
-      toast.success("Movimiento creado exitosamente");
+      toast.success("Successfully created movement");
       setMovements((prev) => [...prev, res.data.populatedMovement]);
     }
   };
@@ -44,9 +44,9 @@ export const useMovements = () => {
   const updateMovement = async (id, data) => {
     const res = await updateMovementRequest(id, data);
     if (res.error) {
-      toast.error(res.e?.response?.data || "Error al actualizar movimiento");
+      toast.error(res.e?.response?.data || "Error updating movement");
     } else {
-      toast.success("Movimiento actualizado exitosamente");
+      toast.success("Movement successfully updated");
       await getMovements();
     }
   };
@@ -54,9 +54,9 @@ export const useMovements = () => {
   const deleteMovement = async (id) => {
     const res = await deleteMovementRequest(id);
     if (res.error) {
-      toast.error(res.e?.response?.data || "Error al eliminar movimiento");
+      toast.error(res.e?.response?.data || "Error removing motion");
     } else {
-      toast.success("Movimiento eliminado");
+      toast.success("Move removed");
       await getMovements();
     }
   };

@@ -189,9 +189,9 @@ export const getMovements = async () => {
     try {
         return await apiClient.get("/movements");
     } catch (e) {
-        return { 
-            error: true, 
-            e 
+        return {
+            error: true,
+            e
         };
     }
 };
@@ -200,7 +200,10 @@ export const createMovement = async (data) => {
     try {
         return await apiClient.post("/movements", data);
     } catch (e) {
-        return { error: true, e };
+        return {
+            error: true,
+            e
+        };
     }
 };
 
@@ -208,15 +211,24 @@ export const updateMovement = async (id, data) => {
     try {
         return await apiClient.put(`/movements/${id}`, data);
     } catch (e) {
-        return { error: true, e };
+        return {
+            error: true,
+            e
+        };
     }
 };
 
 export const deleteMovement = async (id) => {
     try {
-        return await apiClient.delete(`/movements/${id}`);
+        const res = await apiClient.delete(`/movements/${id}`, {
+            data: { confirm: true }
+        });
+        return { data: res.data };
     } catch (e) {
-        return { error: true, e };
+        return { 
+            error: true, 
+            e 
+        };
     }
 };
 
@@ -224,7 +236,10 @@ export const getMovementById = async (id) => {
     try {
         return await apiClient.get(`/movements/${id}`);
     } catch (e) {
-        return { error: true, e };
+        return {
+            error: true,
+            e
+        };
     }
 };
 
@@ -239,7 +254,7 @@ export const getUsers = async () => {
     }
 }
 
-export const updateUser  = async (data, userId) => {
+export const updateUser = async (data, userId) => {
     try {
         return await apiClient.put(`/users/update/${userId}`, data)
     } catch (e) {

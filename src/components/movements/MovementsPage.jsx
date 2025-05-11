@@ -26,7 +26,8 @@ const MovementsPage = () => {
     };
 
     const handleEditMovement = async (id, data) => {
-        await updateMovement(id, data);
+        const { type, quantity, reason, destination } = data;
+        await updateMovement(id, { type, quantity, reason, destination });
     };
 
     const handleDeleteMovement = async (id) => {
