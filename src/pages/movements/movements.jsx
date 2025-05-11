@@ -2,24 +2,23 @@ import { Route, Routes } from 'react-router-dom';
 import { useEffect } from "react";
 import { useMovements } from "../../shared/hooks/useMovement.jsx";
 import { useProducts } from "../../shared/hooks/useProducts.jsx";
-//import { useEmployees } from "../../shared/hooks/useEmployees.jsx";
-import MovementList from "../../components/movements/MovementList.jsx";
-import MovementForm from "../../components/movements/MovementForm.jsx";
+import { useUsers } from "../../shared/hooks/useUser.jsx";
+import MovementsT from "../../components/movements/MovementsT.jsx";
 import MovementDetails from "../../components/movements/MovementDetails.jsx";
 import { LoadingSpinner } from "../../components/LoadingSpinner.jsx";
 import Sidebar from '../../components/dashboard/sidebar';
-//import Navbar from '../../components/navbars/navbar';
 import './movements.css';
 
 const MovementsPage = () => {
-    const { getMovements, movements, isLoading, createMovement } = useMovements();
+    const { getMovements, movements, isLoading, createMovement, updateMovement, deleteMovement } = useMovements();
     const { getProducts, allProducts } = useProducts();
-    //const { getEmployees, allEmployees } = useEmployees();
+    const { getUsers, users } = useUsers();
+
 
     useEffect(() => {
         getMovements();
         getProducts();
-        //getEmployees();
+        getUsers();
     }, []);
 
     if (isLoading) return <LoadingSpinner />;
@@ -27,25 +26,23 @@ const MovementsPage = () => {
     return (
         <div className="movements-layout">
             <Sidebar />
-              
             <div className="movements-content">
                 <Routes>
                     <Route
                         path="/"
-                        element={<MovementList movements={movements} />}
-                    />
-                    <Route
-                        path="/new"
                         element={
-                            <MovementForm
-                                products={allProducts}
-                                //employees={allEmployees}
+                            <MovementsT
+                                movements={movements}
                                 onSubmit={createMovement}
+                                products={allProducts}
+                                users={users}
+                                onEdit={updateMovement}
+                                onDelete={deleteMovement}
                             />
                         }
                     />
                     <Route
-                        path="/:id"
+                        path="/movements"
                         element={<MovementDetails />}
                     />
                 </Routes>

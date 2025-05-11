@@ -110,7 +110,7 @@ export const deleteProduct = async (productId) => {
 
 export const getProducts = async () => {
     try {
-        return await apiClient.get('/products');
+        return await apiClient.get('/products/');
     } catch (e) {
         return {
             error: true,
@@ -187,40 +187,76 @@ export const register = async (data) => {
 
 export const getMovements = async () => {
     try {
-      return await apiClient.get("/movements");
+        return await apiClient.get("/movements");
     } catch (e) {
-      return { error: true, e };
+        return { 
+            error: true, 
+            e 
+        };
     }
-  };
-  
-  export const createMovement = async (data) => {
-    try {
-      return await apiClient.post("/movements", data);
-    } catch (e) {
-      return { error: true, e };
-    }
-  };
-  
-  export const updateMovement = async (id, data) => {
-    try {
-      return await apiClient.put(`/movements/${id}`, data);
-    } catch (e) {
-      return { error: true, e };
-    }
-  };
-  
-  export const deleteMovement = async (id) => {
-    try {
-      return await apiClient.delete(`/movements/${id}`);
-    } catch (e) {
-      return { error: true, e };
-    }
-  };
+};
 
-  export const getMovementById = async (id) => {
+export const createMovement = async (data) => {
     try {
-      return await apiClient.get(`/movements/${id}`);
+        return await apiClient.post("/movements", data);
     } catch (e) {
-      return { error: true, e };
+        return { error: true, e };
     }
-  };
+};
+
+export const updateMovement = async (id, data) => {
+    try {
+        return await apiClient.put(`/movements/${id}`, data);
+    } catch (e) {
+        return { error: true, e };
+    }
+};
+
+export const deleteMovement = async (id) => {
+    try {
+        return await apiClient.delete(`/movements/${id}`);
+    } catch (e) {
+        return { error: true, e };
+    }
+};
+
+export const getMovementById = async (id) => {
+    try {
+        return await apiClient.get(`/movements/${id}`);
+    } catch (e) {
+        return { error: true, e };
+    }
+};
+
+export const getUsers = async () => {
+    try {
+        return await apiClient.get('/users/')
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const updateUser  = async (data, userId) => {
+    try {
+        return await apiClient.put(`/users/update/${userId}`, data)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const deleteUser = async (id) => {
+    try {
+        return await apiClient.delete(`/users/delete/${id}`)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}

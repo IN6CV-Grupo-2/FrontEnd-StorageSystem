@@ -1,67 +1,64 @@
-import React, { useEffect, useState } from "react";
-import MovementList from "./MovementList";
-import MovementForm from "./MovementForm";
-import MovementDetails from "./MovementDetails";
+import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from "react";
 import { useMovements } from "../../shared/hooks/useMovement.jsx";
 import { useProducts } from "../../shared/hooks/useProducts.jsx";
-// import { useEmployees } from "../../shared/hooks/useEmployees";
-import "./MovementsPage.css";
+import { useUsers } from "../../shared/hooks/useUser.jsx";
+import MovementsT from "../../components/movements/MovementsT.jsx";
+import MovementDetails from "../../components/movements/MovementDetails.jsx";
+import { LoadingSpinner } from "../../components/LoadingSpinner.jsx";
+import Sidebar from '../../components/dashboard/sidebar';
+import './movements.css';
 
 const MovementsPage = () => {
-    const { getMovements, allMovements, createMovement } = useMovements();
-    const { getProducts, allProducts } = useProducts();
-    const [showForm, setShowForm] = useState(false);
-    const [formKey, setFormKey] = useState(0);
-    const [selectedMovement, setSelectedMovement] = useState(null);
-    // const { getEmployees, allEmployees } = useEmployees();
+    const { getMovements, movements, isLoading, createMovement, updateMovement, deleteMovement } = useMovements();
+    const { getProducts, allProducts: products } = useProducts();
+    const { getUsers, users } = useUsers();
 
     useEffect(() => {
         getMovements();
         getProducts();
-        // getEmployees();
+        getUsers();
+
     }, []);
 
-    const handleCreateMovement = async (formData) => {
-        await createMovement(formData);
-        getMovements();
-        setSelectedMovement(null);
-        setShowForm(false);
+    const handleCreateMovement = async (data) => {
+        await createMovement(data);
     };
 
-    return (
-        <div className="movements-page">
-            <div className="form-section">
-                {showForm && (
-                    <div className="modal-overlay" onClick={() => setShowForm(false)}>
-                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                            <MovementForm
-                                key={formKey}
-                                products={allProducts}
-                                // employees={allEmployees}
-                                onSubmit={handleCreateMovement}
-                            />
-                            <button className="close-button" onClick={() => setShowForm(false)}>×</button>
-                        </div>
-                    </div>
-                )}
-            </div>
+    const handleEditMovement = async (id, data) => {
+        await updateMovement(id, data);
+    };
 
-            <div className="list-section">
-                <MovementList
-                    movements={allMovements}
-                    onSelect={(movement) => {
-                        setSelectedMovement(movement);
-                        setShowForm(false);
-                    }}
-                    onAdd={() => {
-                        setSelectedMovement(null);
-                        setShowForm(true);
-                        setFormKey(prev => prev + 1);
-                    }}
-                />
-                {selectedMovement && (
-                    <MovementDetails movement={selectedMovement} />
-                )}
+    const handleDeleteMovement = async (id) => {
+        await deleteMovement(id);
+    };
+
+    if (isLoading) return <LoadingSpinner />;
+
+    return (
+        <div className="movements-layout">
+            <Sidebar />
+
+            <div className="movements-content">
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <MovementsT
+                                movements={movements}
+                                products={products}
+                                users={users}
+                                onSubmit={handleCreateMovement}
+                                onDelete={handleDeleteMovement}
+                                onEdit={handleEditMovement}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/:id"
+                        element={<MovementDetails />}
+                    />
+                </Routes>
             </div>
         </div>
     );

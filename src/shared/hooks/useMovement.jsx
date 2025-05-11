@@ -6,7 +6,7 @@ import {
   updateMovement as updateMovementRequest,
   deleteMovement as deleteMovementRequest,
   getMovementById as getMovementByIdRequest
-} from "../../services/api";
+} from "../../services/api.jsx";
 
 export const useMovements = () => {
   const [movements, setMovements] = useState([]);
@@ -37,7 +37,7 @@ export const useMovements = () => {
       toast.error(res.e?.response?.data || "Error al crear movimiento");
     } else {
       toast.success("Movimiento creado exitosamente");
-      await getMovements();
+      setMovements((prev) => [...prev, res.data.populatedMovement]);
     }
   };
 

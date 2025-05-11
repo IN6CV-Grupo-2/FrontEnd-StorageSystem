@@ -2,7 +2,7 @@ import React from "react";
 import "./MovementDetails.css";
 
 const MovementDetails = ({ movement }) => {
-    if (!movement) return <p>No move selected.</p>;
+    if (!movement) return null;
 
     return (
         <div className="movement-details">
