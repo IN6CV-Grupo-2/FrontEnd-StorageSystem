@@ -7,19 +7,25 @@ import ReportsPage from "../src/pages/reports/reports.jsx";
 import CategoriesPage from "../src/pages/categories/categories.jsx";
 import ProfilePage from "../src/pages/profile/profile.jsx";
 import { Auth } from "../src/pages/auth/Auth.jsx";
-
+import useAuth from "./shared/hooks/useAuth";
 
 const AppRoutes = () => {
+  const { user } = useAuth();
+
   return (
     <Routes>
-      <Route path="/" element={<Navigate to={"/auth"}/>} />
+      <Route path="/" element={<Navigate to={"/auth"} />} />
       <Route path="/auth" element={<Auth />} />
-      <Route path="/" element={<MainPage />} />
+      <Route path="/main" element={<MainPage />} />
       <Route path="/products" element={<ProductsPage />} />
-      <Route path="/users" element={<UsersPage />} />
+      {user?.role === "ADMIN_ROLE" && (
+        <>
+          <Route path="/users" element={<UsersPage />} />
+          <Route path="/categories" element={<CategoriesPage />} />
+        </>
+      )}
       <Route path="/suppliers" element={<SuppliersPage />} />
       <Route path="/reports" element={<ReportsPage />} />
-      <Route path="/categories" element={<CategoriesPage />} />
       <Route path="/profile" element={<ProfilePage />} />
     </Routes>
   );

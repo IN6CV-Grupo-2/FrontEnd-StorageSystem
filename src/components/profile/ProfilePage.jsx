@@ -1,47 +1,95 @@
-import { useState } from "react";
-import { updateUser } from "../../services";
+import { useEffect, useState } from "react";
+import { getUserProfile, updateUser } from "../../services/api.jsx";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import ProfileForm from "./ProfileForm";
-import LogoutButton from "./LogoutButton";
 import ProfileCard from "./ProfileCard";
+import ProfileForm from "./ProfileForm";
+import { useNavigate } from "react-router-dom";
+import LogoutButton from "./LogoutButton";
 
 export const ProfilePage = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+  const [user, setUser] = useState(null);
 
-  const handleUpdate = async (formData) => {
-    const response = await updateUser(formData, user.uid);
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await getUserProfile();
+        if (response.error) {
+          toast.error("Error al cargar el perfil.");
+          navigate("/"); // Redirigir a la página principal si no se puede cargar el perfil
+          return;
+        }
+        setUser(response.data.user);
+      } catch (error) {
+        toast.error("Error al cargar el perfil.");
+        navigate("/"); // Redirigir a la página principal si ocurre un error
+      }
+    };
 
-    if (response.error) {
-      return toast.error("Error al actualizar el perfil");
+    fetchUserProfile();
+  }, [navigate]);
+
+  const handleUpdateProfile = async (formData) => {
+    try {
+      const response = await updateProfile(formData);
+      if (response.error) {
+        toast.error(response.msg || "Error al actualizar el perfil.");
+        return;
+      }
+      toast.success("Perfil actualizado correctamente.");
+
+      const updatedUser = response.user;
+      setUser((prev) => ({
+        ...prev,
+        username: updatedUser.username || prev.username,
+        email: updatedUser.email || prev.email,
+      }));
+    } catch (error) {
+      toast.error("Error al actualizar el perfil.");
     }
+  };
 
-    const updatedData = response.data;
-    const newUser = { ...user, ...updatedData };
-    localStorage.setItem("user", JSON.stringify(newUser));
-    setUser(newUser);
-
-    toast.success("Perfil actualizado correctamente");
+  const handleUpdatePassword = async (formData) => {
+    try {
+      const response = await updateProfile(formData);
+      if (response.error) {
+        toast.error(response.msg || "Error al cambiar la contraseña.");
+        return;
+      }
+      toast.success("Contraseña actualizada correctamente.");
+    } catch (error) {
+      toast.error("Error al cambiar la contraseña.");
+    }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    toast.success("Sesión cerrada");
-    navigate("/login");
+    if (window.confirm("¿Estás seguro de que deseas cerrar sesión?")) {
+      localStorage.removeItem("user");
+      window.location.href = "/auth"; // Redirigir al login
+    }
   };
 
-  if (!user) return <p>No hay datos del usuario</p>;
+  if (!user) return <p>Cargando datos del usuario...</p>;
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-3">Mi Perfil</h2>
+    <div className="profile-container">
+      <h2 className="profile-title">Mi Perfil</h2>
       <ProfileCard user={user} />
-      <ProfileForm user={user} onSubmit={handleUpdate} />
-      <LogoutButton onLogout={handleLogout} />
+      <div className="profile-sections">
+        <ProfileForm
+          user={user}
+          onSubmit={handleUpdateProfile}
+          section="profile"
+        />
+        <ProfileForm
+          user={user}
+          onSubmit={handleUpdatePassword}
+          section="password"
+        />
+      </div>
+      <div className="logout-container">
+        <LogoutButton onLogout={handleLogout} />
+      </div>
     </div>
   );
 };

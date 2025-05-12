@@ -11,6 +11,7 @@ import {
     passwordConfirmationMessage
 } from '../shared/validators'
 import { useRegister } from "../shared/hooks/useRegister";
+import { toast } from 'react-toastify';
 
 export const Register = ({ switchAuthHandler }) => {
 
@@ -77,10 +78,21 @@ export const Register = ({ switchAuthHandler }) => {
         }));
     }
 
-    const handleRegister = (event) => {
-        event.preventDefault()
-        register(formState.email.value, formState.password.value, formState.username.value)
-    }
+    const handleRegister = async (event) => {
+        event.preventDefault();
+
+        if (!formState.email.isValid || !formState.password.isValid || !formState.username.isValid) {
+            toast.error("Por favor, completa todos los campos correctamente.");
+            return;
+        }
+
+        try {
+            await register(formState.email.value, formState.password.value, formState.username.value);
+            toast.success("Usuario registrado correctamente.");
+        } catch (error) {
+            toast.error("Error al registrar el usuario.");
+        }
+    };
 
     const isSubmitButtonDisabled = isLoading ||
         !formState.email.isValid ||

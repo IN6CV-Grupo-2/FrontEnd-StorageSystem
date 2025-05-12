@@ -22,23 +22,50 @@ const Category = () => {
   }, []);
 
   const handleSave = (data) => {
-    if (editingCategory) {
-        editCategory(data, editingCategory.id);
+    console.log("Datos enviados al backend:", data);
+    console.log("Estado de editingCategory:", editingCategory);
+
+    const nameExists = categories.some(
+      (category) =>
+        category.name.toLowerCase() === data.name.toLowerCase() &&
+        category.uid !== (editingCategory?.uid || editingCategory?._id)
+    );
+
+    if (nameExists) {
+      alert("El nombre de la categoría ya existe. Por favor, elige otro.");
+      return;
+    }
+
+    if (editingCategory && (editingCategory.uid || editingCategory._id)) {
+      const categoryId = editingCategory.uid || editingCategory._id;
+      if (window.confirm(`¿Estás seguro de que deseas actualizar la categoría "${editingCategory.name}"?`)) {
+        console.log("Actualizando categoría con ID:", categoryId);
+        editCategory(data, categoryId);
+      }
     } else {
-        createCategory(data);
+      console.log("Creando nueva categoría");
+      createCategory(data);
     }
     setEditingCategory(null);
   };
 
-  const handleEdit = (category) => setEditingProvider(category);
-  const handleDelete = (category) => removeCategory({ id: category.id });
+  const handleEdit = (category) => {
+    setEditingCategory(category);
+  };
+
+  const handleDelete = (categoryId) => {
+    if (window.confirm(`¿Estás seguro de que deseas eliminar la categoría?`)) {
+      removeCategory(categoryId);
+    }
+  };
 
   const filteredCategories = searchTerm
-  ? categories.filter((cat) =>
-     cat.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     cat.id.toString().includes(searchTerm)
-    )
-  : categories;
+    ? categories.filter((cat) =>
+        cat.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (cat.uid && cat.uid.toString().includes(searchTerm))
+      )
+    : categories;
+
   return (
     <div className="supplier-container">
       <h1 className="supplier-title">Gestión de Categorias</h1>

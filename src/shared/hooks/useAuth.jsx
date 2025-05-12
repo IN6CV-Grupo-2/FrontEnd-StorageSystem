@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(storedUser);
+      setUser(JSON.parse(storedUser));
     }
   }, []);
 
   const logout = () => {
-    localStorage.removeItem('user');
-    window.location.href = '/'; // o redirige al login si existe
+    if (window.confirm("¿Estás seguro de que deseas cerrar sesión?")) {
+      localStorage.removeItem("user");
+      window.location.href = "/auth"; // Redirigir al login
+    }
   };
 
   return { user, logout, setUser };

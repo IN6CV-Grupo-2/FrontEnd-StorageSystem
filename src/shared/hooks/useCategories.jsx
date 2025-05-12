@@ -1,80 +1,83 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import {
-  getCategory  as getCategoriesRequest,
-  saveCategory,
-  updateCategory,
-  deleteCategory
-} from "../../services/api.jsx";
+import apiClient from "../../services/api.jsx";
 
 export const useCategories = () => {
-  const [categories, setCategories] = useState(null);
+  const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getCategories = async () => {
     setIsLoading(true);
-    const response = await getCategoriesRequest();
-
-    if (response.error) {
-      toast.error(
-        response.e?.response?.data || "Error al obtener las categorias"
-      );
+    try {
+      const response = await apiClient.get("/categories"); // Asegúrate de que esta solicitud use apiClient
+      setCategories(response.data.categories);
+    } catch (error) {
+      if (error.response?.status === 403) {
+        toast.error("No tienes permisos para acceder a las categorías.");
+      } else {
+        console.error("Error al obtener categorías:", error);
+      }
+    } finally {
       setIsLoading(false);
-      return;
     }
-
-    setCategories(response.data.categories);
-    setIsLoading(false);
   };
 
   const createCategory = async (data) => {
-    const response = await saveCategory(data);
-
-    if (response.error) {
-      toast.error(
-        response.e?.response?.data || "Error al guardar la categoria"
-      );
-      return;
+    try {
+        console.log("Datos enviados al backend:", data); // Verifica los datos enviados
+        const response = await apiClient.post("/categories/save", data);
+        if (response.error) {
+            toast.error("Error al crear la categoría.");
+            return;
+        }
+        toast.success("Categoría creada correctamente.");
+        getCategories(); // Recargar la lista de categorías
+    } catch (error) {
+        console.error("Error al crear la categoría:", error);
     }
-
-    toast.success("Categoria guardado correctamente");
-    getCategories();
   };
 
-  const editCategory = async (data, id) => {
-    const response = await updateCategory(data, id);
-
-    if (response.error) {
-      toast.error(
-        response.e?.response?.data || "Error al actualizar la categoria"
-      );
-      return;
+  const editCategory = async (data, categoryId) => {
+    try {
+      const response = await apiClient.put(`/categories/update/${categoryId}`, data);
+      if (response.error) {
+        toast.error("Error al actualizar la categoría.");
+        return;
+      }
+      toast.success("Categoría actualizada correctamente.");
+      getCategories(); // Recargar la lista de categorías
+    } catch (error) {
+      console.error("Error al actualizar la categoría:", error);
     }
-
-    toast.success("Categoria actualizado correctamente");
-    getCategories();
   };
 
-  const removeCategory = async (data) => {
-    const response = await deleteCategory(data);
+  const removeCategory = async (categoryId) => {
+    try {
+      if (!categoryId) {
+        console.error("El ID de la categoría es undefined.");
+        return;
+      }
 
-    if (response.error) {
-      toast.error(
-        response.e?.response?.data || "Error al eliminar la categoria"
-      );
-      return;
+      console.log("Eliminando categoría con ID:", categoryId);
+      const response = await apiClient.delete(`/categories/delete/${categoryId}?confirm=true`); // Agregar confirm=true
+      if (response.error) {
+        console.error("Error al eliminar la categoría:", response.error);
+        return;
+      }
+
+      toast.success("Categoría eliminada correctamente.");
+      getCategories(); // Recargar la lista de categorías
+    } catch (error) {
+      console.error("Error al eliminar la categoría:", error);
     }
-
-    toast.success("Categoria eliminada correctamente");
-    getCategories();
   };
 
   return {
     categories,
     isLoading,
     getCategories,
-    createCategory,
+    createCategory, // Asegúrate de que esta función esté exportada
     editCategory,
-    removeCategory
+    removeCategory,
   };
 };

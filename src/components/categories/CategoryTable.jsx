@@ -25,8 +25,11 @@ export const CategoryTable = ({ categories, onEdit, onDelete }) => {
                                 Editar
                             </button>
                             <button
-                                onClick={() => onDelete({ id: cat.id || cat.uid })}
-                                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                                onClick={() => {
+                                    console.log("ID de la categoría a eliminar:", cat.id || cat.uid);
+                                    onDelete(cat.id || cat.uid);
+                                }}
+                                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                             >
                                 Eliminar
                             </button>

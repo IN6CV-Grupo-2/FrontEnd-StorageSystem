@@ -5,62 +5,56 @@ export const CategoryForm = ({ onSave, initialData }) => {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    if (initialData?.name) {
-      setName(initialData.name);
-    }
-    if (initialData?.description) {
-      setDescription(initialData.description);
+    if (initialData) {
+      setName(initialData.name || "");
+      setDescription(initialData.description || "");
+    } else {
+      setName("");
+      setDescription("");
     }
   }, [initialData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Datos enviados desde el formulario:", { name, description });
     onSave({ name, description });
-    setName("");
-    setDescription("");
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white p-4 rounded shadow mb-6 space-y-4"
-    >
-      <div>
-        <label htmlFor="categoryName" className="block font-semibold mb-1">
-          Nombre de la categoría:
-        </label>
-        <input
-          id="categoryName"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          placeholder="Ej. Categoría X"
-          className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+    <form onSubmit={handleSubmit} className="space-y-2">
+      <input
+        type="text"
+        placeholder="Nombre de la categoría"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+        className="w-full border px-2 py-1"
+      />
+      <input
+        type="text"
+        placeholder="Descripción"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        className="w-full border px-2 py-1"
+      />
+      <div className="flex gap-2">
+        <button type="submit" className="bg-blue-500 text-white px-4 py-1 rounded">
+          {initialData ? "Actualizar" : "Guardar"}
+        </button>
+        {initialData && (
+          <button
+            type="button"
+            onClick={() => {
+              setName("");
+              setDescription("");
+              onSave(null);
+            }}
+            className="bg-red-500 text-white px-4 py-1 rounded"
+          >
+            Cancelar edición
+          </button>
+        )}
       </div>
-
-      <div>
-        <label htmlFor="categoryDescription" className="block font-semibold mb-1">
-          Descripción de la categoría:
-        </label>
-        <input
-          id="categoryDescription"
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-          placeholder="Ej. Productos de limpieza"
-          className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-
-      <button
-        type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-      >
-        {initialData ? "Actualizar" : "Agregar"} categoría
-      </button>
     </form>
   );
 };

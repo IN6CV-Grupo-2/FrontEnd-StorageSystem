@@ -20,28 +20,48 @@ const User = () => {
     getUsers();
   }, []);
 
-  const handleSave = (data) => {
+  const handleSave = async (data) => {
     if (editingUser) {
-      editUser(data, editingUser.id);
+        if (window.confirm(`¿Estás seguro de que deseas actualizar al usuario "${editingUser.username}"?`)) {
+            await editUser(data, editingUser.id); // Editar el usuario seleccionado
+            await getUsers(); // Recargar la tabla después de confirmar la edición
+        }
+    } else {
+        if (window.confirm("¿Estás seguro de que deseas agregar este usuario?")) {
+            await register(data.email, data.password, data.username, data.role); // Crear un nuevo usuario
+            await getUsers(); // Recargar la tabla después de confirmar el agregado
+        }
     }
-    setEditingUser(null);
+    setEditingUser(null); // Limpiar el estado de edición
   };
 
-  const handleEdit = (user) => setEditingUser(user);
-  const handleDelete = (user) => removeUser({ id: user.id });
+  const handleEdit = (user) => {
+    setEditingUser(user); // Solo establece el usuario en edición
+  };
+
+  const handleDelete = (user) => {
+    if (!user.id) {
+        console.error("El ID del usuario es undefined:", user);
+        return;
+    }
+
+    if (window.confirm(`¿Estás seguro de que deseas eliminar al usuario "${user.username}"?`)) {
+        removeUser(user.id); // Enviar el ID al backend
+    }
+  };
 
   const filteredUsers = searchTerm
     ? users.filter((usr) =>
-        usr.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        usr.id.toString().includes(searchTerm)
-      )
+        usr.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (usr.id && usr.id.toString().includes(searchTerm))
+    )
     : users;
 
   return (
     <div className="user-container">
       <h1 className="user-title">Gestión de Usuarios</h1>
 
-      <UserForm onSave={handleSave} initialData={editingUser} /> {/* Asumí que UserForm existe */}
+      <UserForm onFinish={handleSave} initialData={editingUser} /> {/* Asumí que UserForm existe */}
 
       <input
         type="text"
