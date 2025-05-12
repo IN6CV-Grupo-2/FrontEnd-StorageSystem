@@ -1,0 +1,169 @@
+.user-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: #f2f2f2;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    font-family: "Segoe UI", sans-serif;
+  }
+  
+  .user-title {
+    font-size: 2rem;
+    color: #134bf2;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .user-form {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    border: 1px solid #b8bbbf;
+  }
+  
+  .user-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #0c87f2;
+  }
+  
+  .user-form input {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #b8bbbf;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  .user-form input:focus {
+    border-color: #134bf2;
+    outline: none;
+  }
+  
+  .user-form button {
+    background-color: #134bf2;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .user-form button:hover {
+    background-color: #0c87f2;
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .user-table th,
+  .user-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .user-table th {
+    background-color: #1ba0f2;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .user-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .user-search {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #b8bbbf;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  .user-search:focus {
+    border-color: #134bf2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(19, 75, 242, 0.2);
+  }
+  
+  .action-button {
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: background-color 0.3s;
+  }
+  
+  .edit-button {
+    background-color: #0c87f2;
+  }
+  
+  .edit-button:hover {
+    background-color: #134bf2;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+  }
+  
+  .delete-button:hover {
+    background-color: #d32f2f;
+  }
+  
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  
+  .user-form label {
+    margin-bottom: 0.4rem;
+    color: #0c87f2;
+    font-weight: 600;
+  }
+  
+  .user-form input {
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  
+  .user-form button {
+    margin-top: 1rem;
+    background-color: #134bf2;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .user-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

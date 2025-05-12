@@ -9,6 +9,7 @@ import { Auth } from "./pages/auth/Auth.jsx";
 
 
 const AppRoutes = () => {
+  const { user } = useAuth();
   
   return (
     <Routes>
@@ -16,10 +17,16 @@ const AppRoutes = () => {
       <Route path="/auth" element={<Auth />} />
       <Route path="/main" element={<MainPage />} />
       <Route path="/products" element={<ProductsPage />} />
-      <Route path="/users" element={<UsersPage />} />
+      {user?.role === "ADMIN_ROLE" && (
+          <>
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="/categories" element={<CategoriesPage />} />
+          </>
+        )}
       <Route path="/suppliers" element={<SuppliersPage />} />
       <Route path="/reports" element={<ReportsPage />} />
       <Route path="/movements/*" element={<MovementsPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
     </Routes>
   );
 };

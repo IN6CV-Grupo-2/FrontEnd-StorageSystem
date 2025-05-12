@@ -9,7 +9,8 @@ const Sidebar = () => {
     { path: "/users", label: "Users" },
     { path: "/suppliers", label: "Suppliers" },
     { path: "/reports", label: "Reports and Statistics" },
-    { path: "/movements", label: "Movements" }
+    { path: "/movements", label: "Movements" },
+    { path: "/profile", label: "Profile" },
   ];
 
   return (
@@ -29,6 +30,15 @@ const Sidebar = () => {
         ></button>
       </div>
       <div className="offcanvas-body">
+
+        <div
+          className="d-flex align-items-center mb-3 cursor-pointer"
+          onClick={() => navigate("/profile")}
+        >
+          <img src={perfilImg} alt="Perfil"className="rounded-circle"width="50"height="50"/>
+          <span className="ms-2">My Profile</span>
+        </div>
+
         {links.map(({ path, label }) => (
           <button
             key={path}

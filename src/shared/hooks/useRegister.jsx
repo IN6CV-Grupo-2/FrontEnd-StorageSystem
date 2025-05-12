@@ -1,37 +1,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { register as registerRequest } from '../../services'
+import { getUsers, register as registerRequest } from '../../services/api.jsx';
 import toast from "react-hot-toast";
 
-export const useRegister = () => {
-
+export const useRegister = (getUsers) => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const navigate = useNavigate();
-
-    const register = async (email, password, username) => {
-
-        setIsLoading(true)
-
-        const response = await registerRequest({email, password, username})
-
-        setIsLoading(false)
-
-        if(response.error){
-            return toast.error(response.error?.response?.data || 'Ocurrio un error al registrar, intenta de nuevo')
+    const register = async (email, password, username, role = "USER_ROLE") => {
+        setIsLoading(true);
+        try {
+            const response = await registerRequest({ email, password, username, role });
+            toast.success(`Usuario ${username} registrado correctamente.`);
+            await getUsers(); // Recargar la lista de usuarios
+        } catch (error) {
+            toast.error(error.response?.data || "Ocurrió un error al registrar, intenta de nuevo");
+        } finally {
+            setIsLoading(false);
         }
-
-        const { userDetails } = response.data
-
-        localStorage.setItem('user', JSON.stringify(userDetails));
-
-        toast.success('Usuario registrado correctamente');
-
-        navigate('/')
-    }
+    };
 
     return {
         register,
-        isLoading
-    }
-}
+        isLoading,
+    };
+};
