@@ -1,1 +1,0 @@
-export { suppliers } from './suppliers.jsx'
