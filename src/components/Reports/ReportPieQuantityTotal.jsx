@@ -37,7 +37,8 @@ export const PieQuantityTotal = () => {
 
     return(
         <div>
-            <h1>Cantidad de Stock</h1>
+            <h1>Stock Quantity</h1>
+            <p>The graph shows the amount of stock there is of each product and the total amount of all products.</p>
             <PieChart
             colors={blueberryTwilightPalette}
             series={[
@@ -48,10 +49,10 @@ export const PieQuantityTotal = () => {
                     faded: {innerRadius: 30, additionalRadius: -30}
                 }
             ]}
-            height={200}
-            width={200}
+            height={300}
+            width={300}
         />
-        <label>Total de Stock : {totalStock}</label>
+        <label>Total Stock : {totalStock}</label>
         </div>
     )
 }

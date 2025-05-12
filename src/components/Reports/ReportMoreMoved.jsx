@@ -43,7 +43,9 @@ export const BarChartStatistics = () => {
     };
 
     return(
-        <div>
+        <div className="pie-container">
+            <h1>Products with more movements</h1>
+            <p>The graph shows the products with the greatest movement, showing the entries and exits with the average movements.</p>
             <BarChart
                 dataset={barData}
                 xAxis={[{dataKey: 'producto' }]}

@@ -43,7 +43,8 @@ export const PieInventoryActive = () => {
     
     return (
         <div>
-            <h1>Valor total del Inventario</h1>
+            <h1>Total Inventory Value</h1>
+            <p>The graph shows the total inventory value of each product.</p>
             <PieChart
             colors={cheerfulFiestaPalette}
             series={[
@@ -56,10 +57,10 @@ export const PieInventoryActive = () => {
                     valueFormatter,
                 }
             ]}
-            height={200}
-            width={200}
+            height={300}
+            width={300}
         />
-        <label>Valor Total de todo el Inventario: {valorTotal}</label>
+        <label>Total Value of All Inventory: {valorTotal}</label>
         </div>
     );
 };

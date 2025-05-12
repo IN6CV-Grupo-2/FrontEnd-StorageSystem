@@ -32,7 +32,8 @@ export const BarChartProducts = () => {
 
     return(
         <div>
-            <h1>Precio Unitario</h1>
+            <h1>Unit Price</h1>
+            <p>The graph shows the unit price of each product</p>
             <PieChart
                 colors={mangoFusionPalette}
                 series={[
@@ -43,8 +44,8 @@ export const BarChartProducts = () => {
                         faded: {innerRadius: 30, additionalRadius: -30}
                     }
                 ]}
-                height={200}
-                width={200}
+                height={300}
+                width={300}
             />
         </div>
     )

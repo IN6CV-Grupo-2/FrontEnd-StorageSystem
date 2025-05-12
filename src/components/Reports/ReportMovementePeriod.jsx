@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BarChart } from "@mui/x-charts";
 import { getReportMovements } from "../../services/api";
 import DatePicker from "react-datepicker";
@@ -46,16 +46,18 @@ export const BarChartMovements = () => {
         yAxis: [
             {
                 label: "Valores",
-                width: 60,
+                width: 70,
             },
         ],
         height: 300,
     };
 
     return (
-        <div>
+        <div className="pie-container" >
+            <h1>Movement Report</h1>
+            <p>The graph shows the movement of products within a specific period of time.</p>
             <div>
-                <h3>Select a Date to Start Date</h3>
+                <h5>Select a Date to Start Date</h5>
                 <DatePicker
                     selected={dates.startDate}
                     onChange={(date) =>
@@ -70,7 +72,7 @@ export const BarChartMovements = () => {
                 />
             </div>
             <div>
-                <h3>Select a date to End Date</h3>
+                <h5>Select a date to End Date</h5>
                 <DatePicker
                     selected={dates.endDate}
                     onChange={(date) =>
