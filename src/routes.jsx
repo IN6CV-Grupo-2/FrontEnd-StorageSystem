@@ -1,0 +1,30 @@
+import { Routes, Route, Navigate } from "react-router-dom";
+import MainPage from "../src/pages/mainPage/mainPage.jsx";
+import ProductsPage from "../src/pages/products/products.jsx";
+import UsersPage from "../src/pages/users/users.jsx";
+import SuppliersPage from "../src/pages/suppliers/suppliers.jsx";
+import ReportsPage from "../src/pages/reports/reports.jsx";
+import CategoriesPage from "../src/pages/categories/categories.jsx";
+import ProfilePage from "../src/pages/profile/profile.jsx";
+import { Auth } from "../src/pages/auth/Auth.jsx";
+import useAuth from "./shared/hooks/useAuth";
+
+const AppRoutes = () => {
+  const { user } = useAuth();
+
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to={"/auth"} />} />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="/main" element={<MainPage />} />
+      <Route path="/products" element={<ProductsPage />} />
+          <Route path="/users" element={<UsersPage />} />
+          <Route path="/categories" element={<CategoriesPage />} />
+      <Route path="/suppliers" element={<SuppliersPage />} />
+      <Route path="/reports" element={<ReportsPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+    </Routes>
+  );
+};
+
+export default AppRoutes;
