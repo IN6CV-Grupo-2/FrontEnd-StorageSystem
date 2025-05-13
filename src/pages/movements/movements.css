@@ -1,0 +1,100 @@
+.movements-layout {
+    display: flex;
+    flex-direction: column;
+    background-color: #F2F2F2;
+    min-height: 100vh;
+}
+
+.movements-content {
+    padding: 2rem;
+    margin-top: 80px;
+}
+
+.movement-list-container {
+    background-color: #ffffff;
+    border: 1px solid #B8BBBF;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.movement-item {
+    background-color: #F2F2F2;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    border-left: 6px solid #134BF2;
+}
+
+.movement-item:hover {
+    background-color: #e1e7f9;
+}
+
+.movement-item.entrada {
+    border-left-color: #1BA0F2;
+}
+
+.movement-item.salida {
+    border-left-color: #0C87F2;
+}
+
+.movement-form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #B8BBBF;
+}
+
+.movement-form h2 {
+    color: #134BF2;
+    margin-bottom: 1rem;
+}
+
+.movement-form label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+    color: #0C87F2;
+}
+
+.movement-form input,
+.movement-form select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #B8BBBF;
+    border-radius: 6px;
+    background-color: #F2F2F2;
+}
+
+.movement-form button {
+    margin-top: 1rem;
+    background-color: #134BF2;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.movement-form button:hover {
+    background-color: #0C87F2;
+}
+
+.movement-details {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #B8BBBF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.movement-details h3 {
+    color: #134BF2;
+    margin-bottom: 1rem;
+}
